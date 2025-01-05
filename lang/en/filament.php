@@ -88,5 +88,51 @@ return [
             'no_roles_selected' => 'No roles selected',
             'no_associations_selected' => 'No associations selected',
         ],
+        'association' => [
+            'label' => 'Association',
+            'plural_label' => 'Associations',
+            'navigation_label' => 'Associations',
+            'navigation_group' => 'Association Management',
+            'total_associations' => 'Total Associations',
+
+            // Form Fields
+            'logo' => 'Logo',
+            'name' => 'Name',
+            'description' => 'Description',
+            'website' => 'Website',
+            'email' => 'Email',
+            'phone' => 'Phone',
+            'address' => 'Address',
+            'city' => 'City',
+            'state' => 'State/Province',
+            'zip' => 'Postal Code',
+            'country' => 'Country',
+            'status' => 'Status',
+            'created_at' => 'Created At',
+
+            // Actions
+            'create' => 'Create Association',
+            'edit' => 'Edit Association',
+            'delete' => 'Delete Association',
+            'toggle_status' => 'Toggle Status',
+
+            // Messages
+            'created' => 'Association created successfully',
+            'updated' => 'Association updated successfully',
+            'deleted' => 'Association deleted successfully',
+            'status_updated' => 'Association status updated successfully',
+
+            // Filters and Headers
+            'filter_by_status' => 'Filter by Status',
+            'filter_by_date' => 'Filter by Date',
+            'from_date' => 'From Date',
+            'to_date' => 'To Date',
+
+            // Status Options
+            'statuses' => [
+                'active' => 'Active',
+                'inactive' => 'Inactive',
+            ],
+        ],
     ],
 ];

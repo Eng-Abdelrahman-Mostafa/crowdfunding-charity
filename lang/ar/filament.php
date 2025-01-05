@@ -88,5 +88,51 @@ return [
             'no_roles_selected' => 'لم يتم اختيار أي أدوار',
             'no_associations_selected' => 'لم يتم اختيار أي جمعيات',
         ],
+        'association' => [
+            'label' => 'جمعية',
+            'plural_label' => 'الجمعيات',
+            'navigation_label' => 'الجمعيات',
+            'navigation_group' => 'إدارة الجمعيات',
+            'total_associations' => 'إجمالي الجمعيات',
+
+            // Form Fields
+            'logo' => 'الشعار',
+            'name' => 'الاسم',
+            'description' => 'الوصف',
+            'website' => 'الموقع الإلكتروني',
+            'email' => 'البريد الإلكتروني',
+            'phone' => 'رقم الهاتف',
+            'address' => 'العنوان',
+            'city' => 'المدينة',
+            'state' => 'المنطقة/المحافظة',
+            'zip' => 'الرمز البريدي',
+            'country' => 'الدولة',
+            'status' => 'الحالة',
+            'created_at' => 'تاريخ الإنشاء',
+
+            // Actions
+            'create' => 'إنشاء جمعية',
+            'edit' => 'تعديل الجمعية',
+            'delete' => 'حذف الجمعية',
+            'toggle_status' => 'تغيير الحالة',
+
+            // Messages
+            'created' => 'تم إنشاء الجمعية بنجاح',
+            'updated' => 'تم تحديث الجمعية بنجاح',
+            'deleted' => 'تم حذف الجمعية بنجاح',
+            'status_updated' => 'تم تحديث حالة الجمعية بنجاح',
+
+            // Filters and Headers
+            'filter_by_status' => 'تصفية حسب الحالة',
+            'filter_by_date' => 'تصفية حسب التاريخ',
+            'from_date' => 'من تاريخ',
+            'to_date' => 'إلى تاريخ',
+
+            // Status Options
+            'statuses' => [
+                'active' => 'نشط',
+                'inactive' => 'غير نشط',
+            ],
+        ],
     ],
 ];

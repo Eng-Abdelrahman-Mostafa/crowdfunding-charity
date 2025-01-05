@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 
-use App\Filament\Resources\UserResource\UserResource;
+use App\Filament\Resources\UserResource;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
