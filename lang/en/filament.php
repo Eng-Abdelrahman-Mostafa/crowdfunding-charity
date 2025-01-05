@@ -134,5 +134,26 @@ return [
                 'inactive' => 'Inactive',
             ],
         ],
+        'donation_category' => [
+            'label' => 'Donation Category',
+            'plural_label' => 'Donation Categories',
+            'navigation_label' => 'Categories',
+            'navigation_group' => 'Donation Management',
+            'total_categories' => 'Total Categories',
+
+            // Form Fields
+            'name' => 'Name',
+            'created_at' => 'Created At',
+
+            // Actions
+            'create' => 'Create Category',
+            'edit' => 'Edit Category',
+            'delete' => 'Delete Category',
+
+            // Messages
+            'created' => 'Category created successfully',
+            'updated' => 'Category updated successfully',
+            'deleted' => 'Category deleted successfully',
+        ],
     ],
 ];

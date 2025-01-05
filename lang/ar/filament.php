@@ -134,5 +134,26 @@ return [
                 'inactive' => 'غير نشط',
             ],
         ],
+        'donation_category' => [
+            'label' => 'فئة التبرع',
+            'plural_label' => 'فئات التبرع',
+            'navigation_label' => 'الفئات',
+            'navigation_group' => 'إدارة التبرعات',
+            'total_categories' => 'إجمالي الفئات',
+
+            // Form Fields
+            'name' => 'الاسم',
+            'created_at' => 'تاريخ الإنشاء',
+
+            // Actions
+            'create' => 'إنشاء فئة',
+            'edit' => 'تعديل الفئة',
+            'delete' => 'حذف الفئة',
+
+            // Messages
+            'created' => 'تم إنشاء الفئة بنجاح',
+            'updated' => 'تم تحديث الفئة بنجاح',
+            'deleted' => 'تم حذف الفئة بنجاح',
+        ],
     ],
 ];
