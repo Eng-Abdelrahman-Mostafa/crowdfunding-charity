@@ -15,7 +15,6 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -45,6 +44,16 @@ class UserResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return __('filament.resource.user.navigation_group');
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 0 ? 'primary' : 'gray';
     }
 
     public static function form(Form $form): Form
@@ -91,6 +100,15 @@ class UserResource extends Resource
                     ->live()
                     ->label(__('filament.resource.user.type')),
 
+                Select::make('status')
+                    ->options([
+                        'active' => __('filament.resource.user.statuses.active'),
+                        'inactive' => __('filament.resource.user.statuses.inactive'),
+                    ])
+                    ->required()
+                    ->default('active')
+                    ->label(__('filament.resource.user.status')),
+
                 Select::make('roles')
                     ->multiple()
                     ->relationship('roles', 'name')
@@ -111,16 +129,6 @@ class UserResource extends Resource
             ]);
     }
 
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
-
-    public static function getNavigationBadgeColor(): ?string
-    {
-        return static::getModel()::count() > 0 ? 'primary' : 'gray';
-    }
-
     public static function table(Table $table): Table
     {
         return $table
@@ -128,7 +136,8 @@ class UserResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable()
-                    ->label(__('filament.resource.user.name')),
+                    ->label(__('filament.resource.user.name'))
+                    ->url(fn ($record) => $record->trashed() ? null : static::getUrl('edit', ['record' => $record])),
 
                 TextColumn::make('email')
                     ->searchable()
@@ -149,12 +158,14 @@ class UserResource extends Resource
                     ->formatStateUsing(fn (string $state): string => __("filament.resource.user.types.{$state}"))
                     ->label(__('filament.resource.user.type')),
 
-                TextColumn::make('email_verified_at')
+                TextColumn::make('status')
                     ->badge()
-                    ->color(fn ($record) => $record->email_verified_at ? 'success' : 'danger')
-                    ->formatStateUsing(fn ($record) => $record->email_verified_at
-                        ? __('filament.resource.user.statuses.active')
-                        : __('filament.resource.user.statuses.inactive'))
+                    ->color(fn (string $state): string => match ($state) {
+                        'active' => 'success',
+                        'inactive' => 'danger',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => __("filament.resource.user.statuses.{$state}"))
                     ->label(__('filament.resource.user.status')),
 
                 TextColumn::make('created_at')
@@ -171,14 +182,11 @@ class UserResource extends Resource
                     ])
                     ->label(__('filament.resource.user.filter_by_type')),
 
-                TernaryFilter::make('status')
-                    ->placeholder(__('filament.resource.user.statuses.all'))
-                    ->trueLabel(__('filament.resource.user.statuses.active'))
-                    ->falseLabel(__('filament.resource.user.statuses.inactive'))
-                    ->queries(
-                        true: fn (Builder $query) => $query->whereNotNull('email_verified_at'),
-                        false: fn (Builder $query) => $query->whereNull('email_verified_at'),
-                    )
+                SelectFilter::make('status')
+                    ->options([
+                        'active' => __('filament.resource.user.statuses.active'),
+                        'inactive' => __('filament.resource.user.statuses.inactive'),
+                    ])
                     ->label(__('filament.resource.user.filter_by_status')),
 
                 Filter::make('created_at')
@@ -202,76 +210,77 @@ class UserResource extends Resource
                     ->label(__('filament.resource.user.filter_by_date')),
             ])
             ->actions([
-                // Toggle Status Action - Only for non-trashed records
-                Action::make('toggle_status')
-                    ->icon('heroicon-o-power')
-                    ->requiresConfirmation()
-                    ->action(function(User $user) {
-                        if ($user->email_verified_at) {
-                            $user->update(['email_verified_at' => null]);
-                        } else {
-                            $user->update(['email_verified_at' => now()]);
-                        }
-                    })
-                    ->successNotification(
-                        notification: fn () => \Filament\Notifications\Notification::make()
-                            ->success()
-                            ->title(__('filament.resource.user.status_updated'))
-                    )
-                    ->label(__('filament.resource.user.toggle_status'))
-                    ->visible(fn (User $user): bool =>
-                        !$user->trashed() &&
-                        auth()->user()->can('changeStatus', $user)),
-
-                // Edit Action - Only for non-trashed records
-                EditAction::make()
-                    ->label(__('filament.resource.user.edit'))
-                    ->visible(fn (User $user): bool =>
-                        !$user->trashed() &&
-                        auth()->user()->can('update', $user)),
-
-                // Soft Delete Action - Only for non-trashed records
-                DeleteAction::make()
-                    ->label(__('filament.resource.user.delete'))
-                    ->visible(fn (User $user): bool =>
-                        !$user->trashed() &&
-                        auth()->user()->can('delete', $user)),
-
-                // Restore Action - Only for trashed records
+                // Inside the table() method, in the actions section
                 Action::make('restore')
+                    ->label(__('filament.resource.user.restore'))
                     ->icon('heroicon-o-arrow-path')
                     ->color('success')
                     ->requiresConfirmation()
+                    ->modalHeading(__('filament.resource.user.restore'))
+                    ->modalDescription(__('filament.resource.user.Are_you_sure_you_want_to_restore_this_user?'))
                     ->action(fn (User $user) => $user->restore())
                     ->successNotification(
                         notification: fn () => \Filament\Notifications\Notification::make()
                             ->success()
                             ->title(__('filament.resource.user.restored'))
                     )
-                    ->label(__('filament.resource.user.restore'))
                     ->visible(fn (User $record): bool =>
                         $record->trashed() &&
-                        auth()->user()->can('restore', User::class)
-                    ),
+                        auth()->user()->can('restore', $record)),
 
-                // Force Delete Action - Only for trashed records
+                Action::make('toggle_status')
+                    ->label(__('filament.resource.user.toggle_status'))
+                    ->icon('heroicon-o-power')
+                    ->requiresConfirmation()
+                    ->modalHeading(__('filament.resource.user.toggle_status'))
+                    ->modalDescription(fn (User $record) =>
+                    $record->status === 'active'
+                        ? __('filament.resource.user.Are_you_sure_you_want_to_deactivate_this_user?')
+                        : __('filament.resource.user.Are_you_sure_you_want_to_activate_this_user?'))
+                    ->action(function(User $user) {
+                        $user->update([
+                            'status' => $user->status === 'active' ? 'inactive' : 'active'
+                        ]);
+                    })
+                    ->successNotification(
+                        notification: fn () => \Filament\Notifications\Notification::make()
+                            ->success()
+                            ->title(__('filament.resource.user.status_updated'))
+                    )
+                    ->visible(fn (User $user): bool =>
+                        !$user->trashed() &&
+                        auth()->user()->can('changeStatus', $user)),
+
+                EditAction::make()
+                    ->label(__('filament.resource.user.edit'))
+                    ->visible(fn (User $user): bool =>
+                        !$user->trashed() &&
+                        auth()->user()->can('update', $user)),
+
                 Action::make('forceDelete')
+                    ->label(__('filament.resource.user.force_delete'))
                     ->icon('heroicon-o-trash')
                     ->color('danger')
                     ->requiresConfirmation()
                     ->modalHeading(__('filament.resource.user.force_delete'))
-                    ->modalDescription(__('Are you sure you want to permanently delete this user?'))
+                    ->modalDescription(__('filament.resource.user.Are_you_sure_you_want_to_permanently_delete_this_user?'))
                     ->action(fn (User $user) => $user->forceDelete())
                     ->successNotification(
                         notification: fn () => \Filament\Notifications\Notification::make()
                             ->success()
                             ->title(__('filament.resource.user.permanently_deleted'))
                     )
-                    ->label(__('filament.resource.user.force_delete'))
                     ->visible(fn (User $record): bool =>
                         $record->trashed() &&
-                        auth()->user()->can('forceDelete', User::class)
-                    ),
+                        auth()->user()->can('forceDelete', $record)),
+
+                DeleteAction::make()
+                    ->label(__('filament.resource.user.delete'))
+                    ->modalHeading(__('filament.resource.user.delete'))
+                    ->modalDescription(__('filament.resource.user.Are_you_sure_you_want_to_delete_this_user?'))
+                    ->visible(fn (User $user): bool =>
+                        !$user->trashed() &&
+                        auth()->user()->can('delete', $user)),
             ]);
     }
 

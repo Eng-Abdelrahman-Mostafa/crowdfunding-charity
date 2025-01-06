@@ -35,7 +35,7 @@ class CreateUser extends CreateRecord
         }
 
         // Attach associations if user is association manager
-        if ($user->isAssociationManager() && isset($data['associations'])) {
+        if ($user->type === 'association_manager' && isset($data['associations'])) {
             $user->associations()->sync($data['associations']);
         }
 

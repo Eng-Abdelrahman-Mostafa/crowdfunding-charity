@@ -57,6 +57,11 @@ return [
             'restored' => 'User restored successfully',
             'permanently_deleted' => 'User permanently deleted',
             'status_updated' => 'User status updated successfully',
+            'Are_you_sure_you_want_to_deactivate_this_user?' => 'Are you sure you want to deactivate this user?',
+            'Are_you_sure_you_want_to_permanently_delete_this_user?' => 'Are you sure you want to permanently delete this user?',
+            'Are_you_sure_you_want_to_activate_this_user?' => 'Are you sure you want to activate this user?',
+            'Are_you_sure_you_want_to_delete_this_user?' => 'Are you sure you want to delete this user?',
+            'Are_you_sure_you_want_to_restore_this_user?' => 'Are you sure you want to restore this user?',
 
             // Filters and Headers
             'show_deleted' => 'Show Deleted Users',
@@ -154,6 +159,64 @@ return [
             'created' => 'Category created successfully',
             'updated' => 'Category updated successfully',
             'deleted' => 'Category deleted successfully',
+        ],
+        'campaign' => [
+            'label' => 'Campaign',
+            'plural_label' => 'Campaigns',
+            'navigation_label' => 'Campaigns',
+            'navigation_group' => 'Campaign Management',
+            'total_campaigns' => 'Total Campaigns',
+
+            // Form Fields
+            'thumbnail' => 'Thumbnail',
+            'name' => 'Name',
+            'description' => 'Description',
+            'address' => 'Address',
+            'status' => 'Status',
+            'goal_amount' => 'Goal Amount',
+            'collected_amount' => 'Collected Amount',
+            'donation_type' => 'Donation Type',
+            'share_amount' => 'Share Amount',
+            'start_date' => 'Start Date',
+            'end_date' => 'End Date',
+            'association' => 'Association',
+            'category' => 'Category',
+
+            // Actions
+            'create' => 'Create Campaign',
+            'edit' => 'Edit Campaign',
+            'delete' => 'Delete Campaign',
+            'toggle_status' => 'Toggle Status',
+
+            // Messages
+            'created' => 'Campaign created successfully',
+            'updated' => 'Campaign updated successfully',
+            'deleted' => 'Campaign deleted successfully',
+            'status_updated' => 'Campaign status updated successfully',
+
+            // Filters and Headers
+            'filter_by_status' => 'Filter by Status',
+            'filter_by_donation_type' => 'Filter by Donation Type',
+            'filter_by_association' => 'Filter by Association',
+            'filter_by_category' => 'Filter by Category',
+            'filter_by_date' => 'Filter by Date',
+            'from_date' => 'From Date',
+            'to_date' => 'To Date',
+
+            // Status Options
+            'statuses' => [
+                'active' => 'Active',
+                'inactive' => 'Inactive',
+            ],
+
+            // Donation Types
+            'donation_types' => [
+                'open' => 'Open Amount',
+                'share' => 'Fixed Share',
+            ],
+            'validation' => [
+                'share_amount_less_than_goal' => 'Share amount must be less than goal amount',
+            ],
         ],
     ],
 ];

@@ -43,8 +43,8 @@ class UserService
         return $user->fresh();
     }
 
-    public function restore(int $id): bool
+    public function restore(User $user): bool
     {
-        return User::onlyTrashed()->findOrFail($id)->restore();
+        return $user->restore();
     }
 }

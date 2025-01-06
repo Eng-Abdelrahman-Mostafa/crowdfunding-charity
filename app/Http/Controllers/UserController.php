@@ -38,11 +38,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function restore(int $id): JsonResponse
+    public function restore(User $user): JsonResponse
     {
-        $this->authorize('restore', User::class);
+        $this->authorize('restore', $user);
 
-        $this->userService->restore($id);
+        $this->userService->restore($user);
 
         return response()->json([
             'message' => __('User restored successfully')

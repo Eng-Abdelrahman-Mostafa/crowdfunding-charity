@@ -18,7 +18,7 @@ class UserPolicy
     {
         // Admin can view all users
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('users.view.*');
+            return $user->hasPermissionTo('users.view.'.$model->id);
         }
 
         // Association managers can view users related to their associations
@@ -30,7 +30,7 @@ class UserPolicy
 
             // Can view donors who donated to their campaigns
             if ($model->type === 'donor') {
-                return $user->hasPermissionTo('users.view.*') &&
+                return $user->hasPermissionTo('users.view.'.$model->id) &&
                     $user->associations()
                         ->whereHas('campaigns.donations', function($query) use ($model) {
                             $query->where('donor_id', $model->id);
@@ -57,7 +57,7 @@ class UserPolicy
     {
         // Admin can update any user
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('users.update.*');
+            return $user->hasPermissionTo('users.update.'.$model->id);
         }
 
         // Users can update their own profile
@@ -68,13 +68,25 @@ class UserPolicy
     {
         // Only admins can delete users
         return $user->type === 'admin' &&
-            $user->hasPermissionTo('users.delete.*');
+            $user->hasPermissionTo('users.delete.'.$model->id);
     }
 
     public function changeStatus(User $user, User $model): bool
     {
         // Only admins can change user status
         return $user->type === 'admin' &&
-            $user->hasPermissionTo('users.change-status.*');
+            $user->hasPermissionTo('users.change-status.'.$model->id);
+    }
+    public function restore(User $user, User $model): bool
+    {
+        // Only admins can restore users
+        return $user->type === 'admin' &&
+            $user->hasPermissionTo('users.restore.'.$model->id);
+    }
+    public function forceDelete(User $user, User $model): bool
+    {
+        // Only admins can permanently delete users
+        return $user->type === 'admin' &&
+            $user->hasPermissionTo('users.force-delete.'.$model->id);
     }
 }

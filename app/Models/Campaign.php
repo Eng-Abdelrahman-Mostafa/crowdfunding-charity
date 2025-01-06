@@ -3,21 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Campaign extends Model implements hasMedia
+class Campaign extends Model implements HasMedia
 {
-    use InteractsWithMedia,softDeletes;
+    use InteractsWithMedia, SoftDeletes;
+
     protected $fillable = [
         'name',
         'description',
         'address',
-        'status',//active, inactive
+        'status',
         'goal_amount',
         'collected_amount',
-        'donation_type',//open,share
+        'donation_type',
         'share_amount',
         'start_date',
         'end_date',
@@ -25,6 +27,31 @@ class Campaign extends Model implements hasMedia
         'donation_category_id',
         'created_by',
     ];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'goal_amount' => 'decimal:2',
+        'collected_amount' => 'decimal:2',
+        'share_amount' => 'decimal:2',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('userAssociations', function (Builder $builder) {
+            if (auth()->check() && auth()->user()->type === 'association_manager') {
+                $builder->where(function ($query) {
+                    $query->whereHas('association', function ($q) {
+                        $q->where('created_by', auth()->id());
+                    })
+                        ->orWhere('created_by', auth()->id())
+                        ->orWhereIn('association_id', auth()->user()->associations->pluck('id'));
+                });
+            }
+        });
+    }
     public function getThumbnailAttribute(): string
     {
         // Check if the media relationship is already loaded
@@ -43,16 +70,29 @@ class Campaign extends Model implements hasMedia
     }
     public function association()
     {
-        return $this->belongsTo(Association::class, 'association_id');
+        return $this->belongsTo(Association::class);
     }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
     public function donationCategory()
     {
-        return $this->belongsTo(DonationCategory::class, 'donation_category_id');
+        return $this->belongsTo(DonationCategory::class);
     }
+
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
+
+    public function expenditures()
+    {
+        return $this->hasMany(Expenditure::class);
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('thumbnail')

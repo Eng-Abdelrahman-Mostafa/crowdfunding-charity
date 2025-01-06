@@ -57,6 +57,11 @@ return [
             'restored' => 'تم استعادة المستخدم بنجاح',
             'permanently_deleted' => 'تم حذف المستخدم نهائياً',
             'status_updated' => 'تم تحديث حالة المستخدم بنجاح',
+            'Are_you_sure_you_want_to_deactivate_this_user?' => 'هل أنت متأكد من أنك تريد إلغاء تنشيط هذا المستخدم؟',
+            'Are_you_sure_you_want_to_permanently_delete_this_user?' => 'هل أنت متأكد من أنك تريد حذف هذا المستخدم نهائياً؟',
+            'Are_you_sure_you_want_to_activate_this_user?' => 'هل أنت متأكد من أنك تريد تنشيط هذا المستخدم؟',
+            'Are_you_sure_you_want_to_delete_this_user?' => 'هل أنت متأكد من أنك تريد حذف هذا المستخدم؟',
+            'Are_you_sure_you_want_to_restore_this_user?' => 'هل أنت متأكد من أنك تريد استعادة هذا المستخدم؟',
 
             // Filters and Headers
             'show_deleted' => 'عرض المستخدمين المحذوفين',
@@ -154,6 +159,65 @@ return [
             'created' => 'تم إنشاء الفئة بنجاح',
             'updated' => 'تم تحديث الفئة بنجاح',
             'deleted' => 'تم حذف الفئة بنجاح',
+        ],
+        'campaign' => [
+            'label' => 'حملة',
+            'plural_label' => 'الحملات',
+            'navigation_label' => 'الحملات',
+            'navigation_group' => 'إدارة الحملات',
+            'total_campaigns' => 'إجمالي الحملات',
+
+            // Form Fields
+            'thumbnail' => 'الصورة',
+            'name' => 'الاسم',
+            'description' => 'الوصف',
+            'address' => 'العنوان',
+            'status' => 'الحالة',
+            'goal_amount' => 'المبلغ المستهدف',
+            'collected_amount' => 'المبلغ المجموع',
+            'donation_type' => 'نوع التبرع',
+            'share_amount' => 'قيمة السهم',
+            'start_date' => 'تاريخ البداية',
+            'end_date' => 'تاريخ النهاية',
+            'association' => 'الجمعية',
+            'category' => 'الفئة',
+
+            // Actions
+            'create' => 'إنشاء حملة',
+            'edit' => 'تعديل الحملة',
+            'delete' => 'حذف الحملة',
+            'toggle_status' => 'تغيير الحالة',
+
+            // Messages
+            'created' => 'تم إنشاء الحملة بنجاح',
+            'updated' => 'تم تحديث الحملة بنجاح',
+            'deleted' => 'تم حذف الحملة بنجاح',
+            'status_updated' => 'تم تحديث حالة الحملة بنجاح',
+
+            // Filters and Headers
+            'filter_by_status' => 'تصفية حسب الحالة',
+            'filter_by_donation_type' => 'تصفية حسب نوع التبرع',
+            'filter_by_association' => 'تصفية حسب الجمعية',
+            'filter_by_category' => 'تصفية حسب الفئة',
+            'filter_by_date' => 'تصفية حسب التاريخ',
+            'from_date' => 'من تاريخ',
+            'to_date' => 'إلى تاريخ',
+
+            // Status Options
+            'statuses' => [
+                'active' => 'نشط',
+                'inactive' => 'غير نشط',
+            ],
+
+            // Donation Types
+            'donation_types' => [
+                'open' => 'مبلغ مفتوح',
+                'share' => 'سهم ثابت',
+            ],
+
+            'validation' => [
+                'share_amount_less_than_goal' => 'يجب أن تكون قيمة السهم أقل من المبلغ المستهدف',
+            ],
         ],
     ],
 ];

@@ -33,6 +33,14 @@ return [
                 'name' => 'users.change-status.*',
                 'guard_name' => 'web',
             ],
+            [
+                'name' => 'users.restore.*',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'users.force-delete.*',
+                'guard_name' => 'web',
+            ],
         ],
         "associations" => [
             [

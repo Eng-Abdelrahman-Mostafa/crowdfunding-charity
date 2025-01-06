@@ -21,9 +21,6 @@ return new class extends Migration
             $table->timestamps();
             $table->index(['notifiable_id', 'notifiable_type']);
         });
-
-        // Create an index for JSON querying
-        DB::statement('CREATE INDEX notifications_data_format_idx ON notifications ((data::json->>\'format\'))');
     }
 
     /**
@@ -31,9 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Drop the JSON index first
-        DB::statement('DROP INDEX IF EXISTS notifications_data_format_idx');
-
         Schema::dropIfExists('notifications');
     }
 };

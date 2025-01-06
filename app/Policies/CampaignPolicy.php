@@ -12,39 +12,53 @@ class CampaignPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('campaigns.view.*');
+        if (!$user->hasPermissionTo('campaigns.view.*')) {
+            return false;
+        }
+
+        return true;
     }
 
     public function view(User $user, Campaign $campaign): bool
     {
+        if (!$user->hasPermissionTo('campaigns.view.*')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('campaigns.view.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('campaigns.view.*') &&
-                ($campaign->association->created_by === $user->id ||
-                    $campaign->created_by === $user->id);
+            return $campaign->association->created_by === $user->id ||
+                $campaign->created_by === $user->id;
         }
 
-        return $user->hasPermissionTo('campaigns.view.*');
+        return true; // For donors and others, they can view any campaign
     }
 
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('campaigns.create.*');
+        if (!$user->hasPermissionTo('campaigns.create.*')) {
+            return false;
+        }
+
+        return in_array($user->type, ['admin', 'association_manager']);
     }
 
     public function update(User $user, Campaign $campaign): bool
     {
+        if (!$user->hasPermissionTo('campaigns.update.*')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('campaigns.update.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('campaigns.update.*') &&
-                ($campaign->association->created_by === $user->id ||
-                    $campaign->created_by === $user->id);
+            return $campaign->association->created_by === $user->id ||
+                $campaign->created_by === $user->id;
         }
 
         return false;
@@ -52,44 +66,45 @@ class CampaignPolicy
 
     public function delete(User $user, Campaign $campaign): bool
     {
+        if (!$user->hasPermissionTo('campaigns.delete.*')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('campaigns.delete.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('campaigns.delete.*') &&
-                ($campaign->association->created_by === $user->id ||
-                    $campaign->created_by === $user->id);
+            return $campaign->association->created_by === $user->id ||
+                $campaign->created_by === $user->id;
         }
 
         return false;
     }
 
-    public function publish(User $user, Campaign $campaign): bool
+    public function restore(User $user, Campaign $campaign): bool
     {
-        if ($user->type === 'admin') {
-            return $user->hasPermissionTo('campaigns.publish.*');
-        }
+        return $user->type === 'admin' && $user->hasPermissionTo('campaigns.restore.*');
+    }
 
-        if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('campaigns.publish.*') &&
-                ($campaign->association->created_by === $user->id ||
-                    $campaign->created_by === $user->id);
-        }
-
-        return false;
+    public function forceDelete(User $user, Campaign $campaign): bool
+    {
+        return $user->type === 'admin' && $user->hasPermissionTo('campaigns.force-delete.*');
     }
 
     public function changeStatus(User $user, Campaign $campaign): bool
     {
+        if (!$user->hasPermissionTo('campaigns.change-status.*')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('campaigns.change-status.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('campaigns.change-status.*') &&
-                ($campaign->association->created_by === $user->id ||
-                    $campaign->created_by === $user->id);
+            return $campaign->association->created_by === $user->id ||
+                $campaign->created_by === $user->id;
         }
 
         return false;
