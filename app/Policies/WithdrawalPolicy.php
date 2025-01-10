@@ -12,19 +12,22 @@ class WithdrawalPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('withdrawals.view.*');
+        return $user->hasPermissionTo('view_withdrawals');
     }
 
     public function view(User $user, Withdrawal $withdrawal): bool
     {
+        if (!$user->hasPermissionTo('view_withdrawals')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('withdrawals.view.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('withdrawals.view.*') &&
-                ($withdrawal->association->created_by === $user->id ||
-                    $withdrawal->requester_id === $user->id);
+            return $withdrawal->association->created_by === $user->id ||
+                $withdrawal->requester_id === $user->id;
         }
 
         return false;
@@ -32,19 +35,22 @@ class WithdrawalPolicy
 
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('withdrawals.create.*');
+        return $user->hasPermissionTo('create_withdrawals');
     }
 
     public function update(User $user, Withdrawal $withdrawal): bool
     {
+        if (!$user->hasPermissionTo('update_withdrawals')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('withdrawals.update.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('withdrawals.update.*') &&
-                ($withdrawal->association->created_by === $user->id ||
-                    $withdrawal->requester_id === $user->id);
+            return $withdrawal->association->created_by === $user->id ||
+                $withdrawal->requester_id === $user->id;
         }
 
         return false;
@@ -52,14 +58,17 @@ class WithdrawalPolicy
 
     public function delete(User $user, Withdrawal $withdrawal): bool
     {
+        if (!$user->hasPermissionTo('delete_withdrawals')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('withdrawals.delete.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('withdrawals.delete.*') &&
-                ($withdrawal->association->created_by === $user->id ||
-                    $withdrawal->requester_id === $user->id);
+            return $withdrawal->association->created_by === $user->id ||
+                $withdrawal->requester_id === $user->id;
         }
 
         return false;
@@ -67,11 +76,11 @@ class WithdrawalPolicy
 
     public function approve(User $user, Withdrawal $withdrawal): bool
     {
-        return $user->type === 'admin' && $user->hasPermissionTo('withdrawals.approve.*');
+        return $user->type === 'admin' && $user->hasPermissionTo('approve_withdrawals');
     }
 
     public function reject(User $user, Withdrawal $withdrawal): bool
     {
-        return $user->type === 'admin' && $user->hasPermissionTo('withdrawals.reject.*');
+        return $user->type === 'admin' && $user->hasPermissionTo('reject_withdrawals');
     }
 }

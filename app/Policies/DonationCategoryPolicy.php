@@ -12,32 +12,26 @@ class DonationCategoryPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('donation-categories.view.*');
+        return $user->hasPermissionTo('view_donation_categories');
     }
 
     public function view(User $user, DonationCategory $category): bool
     {
-        return $user->hasPermissionTo('donation-categories.view.*');
+        return $user->hasPermissionTo('view_donation_categories');
     }
 
     public function create(User $user): bool
     {
-        // Only admins can create categories
-        return $user->type === 'admin' &&
-            $user->hasPermissionTo('donation-categories.create.*');
+        return $user->type === 'admin' && $user->hasPermissionTo('create_donation_categories');
     }
 
     public function update(User $user, DonationCategory $category): bool
     {
-        // Only admins can update categories
-        return $user->type === 'admin' &&
-            $user->hasPermissionTo('donation-categories.update.*');
+        return $user->type === 'admin' && $user->hasPermissionTo('update_donation_categories');
     }
 
     public function delete(User $user, DonationCategory $category): bool
     {
-        // Only admins can delete categories
-        return $user->type === 'admin' &&
-            $user->hasPermissionTo('donation-categories.delete.*');
+        return $user->type === 'admin' && $user->hasPermissionTo('delete_donation_categories');
     }
 }

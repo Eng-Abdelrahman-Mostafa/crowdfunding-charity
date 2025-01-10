@@ -22,7 +22,6 @@ return [
     'User restored successfully' => 'تم استعادة المستخدم بنجاح',
     'User permanently deleted successfully' => 'تم حذف المستخدم نهائياً بنجاح',
 
-    // User Resource
     'resource' => [
         'user' => [
             'label' => 'مستخدم',
@@ -217,6 +216,97 @@ return [
 
             'validation' => [
                 'share_amount_less_than_goal' => 'يجب أن تكون قيمة السهم أقل من المبلغ المستهدف',
+            ],
+        ],
+        'role' => [
+            'label' => 'دور',
+            'plural_label' => 'الأدوار',
+            'navigation_label' => 'الأدوار',
+            'navigation_group' => 'إدارة المستخدمين',
+
+            // Fields
+            'id' => 'المعرف',
+            'name' => 'الاسم',
+            'guard_name' => 'اسم الحارس',
+            'permissions' => 'الصلاحيات',
+            'permissions_count' => 'عدد الصلاحيات',
+            'created_at' => 'تاريخ الإنشاء',
+
+            // Actions
+            'create' => 'إنشاء دور',
+            'edit' => 'تعديل الدور',
+            'delete' => 'حذف الدور',
+            'delete_confirmation' => 'هل أنت متأكد من حذف هذا الدور؟',
+
+            // Messages
+            'created' => 'تم إنشاء الدور بنجاح',
+            'updated' => 'تم تحديث الدور بنجاح',
+            'deleted' => 'تم حذف الدور بنجاح',
+
+            // Permission Groups
+            'permissions_groups' => [
+                'users' => [
+                    'all' => 'جميع صلاحيات المستخدمين',
+                    'view users' => 'عرض المستخدمين',
+                    'create users' => 'إنشاء المستخدمين',
+                    'update users' => 'تعديل المستخدمين',
+                    'delete users' => 'حذف المستخدمين',
+                    'change user status' => 'تغيير حالة المستخدمين',
+                    'restore users' => 'استعادة المستخدمين',
+                    'force delete users' => 'حذف المستخدمين نهائياً',
+                ],
+                'associations' => [
+                    'all' => 'جميع صلاحيات الجمعيات',
+                    'view associations' => 'عرض الجمعيات',
+                    'create associations' => 'إنشاء الجمعيات',
+                    'update associations' => 'تعديل الجمعيات',
+                    'delete associations' => 'حذف الجمعيات',
+                    'change association status' => 'تغيير حالة الجمعيات',
+                ],
+                'campaigns' => [
+                    'all' => 'جميع صلاحيات الحملات',
+                    'view campaigns' => 'عرض الحملات',
+                    'create campaigns' => 'إنشاء الحملات',
+                    'update campaigns' => 'تعديل الحملات',
+                    'delete campaigns' => 'حذف الحملات',
+                    'change campaign status' => 'تغيير حالة الحملات',
+                    'restore campaigns' => 'استعادة الحملات',
+                    'force delete campaigns' => 'حذف الحملات نهائياً',
+                    'publish campaigns' => 'نشر الحملات',
+                ],
+                'donations' => [
+                    'all' => 'جميع صلاحيات التبرعات',
+                    'view donations' => 'عرض التبرعات',
+                    'create donations' => 'إنشاء التبرعات',
+                    'change donation status' => 'تغيير حالة التبرعات',
+                ],
+                'withdrawals' => [
+                    'all' => 'جميع صلاحيات السحب',
+                    'view withdrawals' => 'عرض عمليات السحب',
+                    'create withdrawals' => 'إنشاء عمليات السحب',
+                    'update withdrawals' => 'تعديل عمليات السحب',
+                    'delete withdrawals' => 'حذف عمليات السحب',
+                    'approve withdrawals' => 'الموافقة على عمليات السحب',
+                    'reject withdrawals' => 'رفض عمليات السحب',
+                ],
+                'donation_categories' => [
+                    'all' => 'جميع صلاحيات فئات التبرع',
+                    'view donation categories' => 'عرض الفئات',
+                    'create donation categories' => 'إنشاء الفئات',
+                    'update donation categories' => 'تعديل الفئات',
+                    'delete donation categories' => 'حذف الفئات',
+                ],
+                'expenditures' => [
+                    'all' => 'جميع صلاحيات المصروفات',
+                    'view expenditures' => 'عرض المصروفات',
+                    'create expenditures' => 'إنشاء المصروفات',
+                    'update expenditures' => 'تعديل المصروفات',
+                    'delete expenditures' => 'حذف المصروفات',
+                ],
+                'dashboard' => [
+                    'all' => 'جميع صلاحيات لوحة التحكم',
+                    'view dashboard' => 'عرض لوحة التحكم',
+                ],
             ],
         ],
     ],

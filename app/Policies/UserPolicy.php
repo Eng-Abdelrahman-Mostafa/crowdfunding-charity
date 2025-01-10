@@ -11,14 +11,14 @@ class UserPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('users.view.*');
+        return $user->hasPermissionTo('view_users');
     }
 
     public function view(User $user, User $model): bool
     {
         // Admin can view all users
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('users.view.'.$model->id);
+            return $user->hasPermissionTo('view_users');
         }
 
         // Association managers can view users related to their associations
@@ -30,7 +30,7 @@ class UserPolicy
 
             // Can view donors who donated to their campaigns
             if ($model->type === 'donor') {
-                return $user->hasPermissionTo('users.view.'.$model->id) &&
+                return $user->hasPermissionTo('view_users') &&
                     $user->associations()
                         ->whereHas('campaigns.donations', function($query) use ($model) {
                             $query->where('donor_id', $model->id);
@@ -48,45 +48,35 @@ class UserPolicy
 
     public function create(User $user): bool
     {
-        // Only admins can create users
-        return $user->type === 'admin' &&
-            $user->hasPermissionTo('users.create.*');
+        return $user->type === 'admin' && $user->hasPermissionTo('create_users');
     }
 
     public function update(User $user, User $model): bool
     {
-        // Admin can update any user
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('users.update.'.$model->id);
+            return $user->hasPermissionTo('update_users');
         }
 
-        // Users can update their own profile
         return $user->id === $model->id;
     }
 
     public function delete(User $user, User $model): bool
     {
-        // Only admins can delete users
-        return $user->type === 'admin' &&
-            $user->hasPermissionTo('users.delete.'.$model->id);
+        return $user->type === 'admin' && $user->hasPermissionTo('delete_users');
+    }
+
+    public function restore(User $user, User $model): bool
+    {
+        return $user->type === 'admin' && $user->hasPermissionTo('restore_users');
+    }
+
+    public function forceDelete(User $user, User $model): bool
+    {
+        return $user->type === 'admin' && $user->hasPermissionTo('force_delete_users');
     }
 
     public function changeStatus(User $user, User $model): bool
     {
-        // Only admins can change user status
-        return $user->type === 'admin' &&
-            $user->hasPermissionTo('users.change-status.'.$model->id);
-    }
-    public function restore(User $user, User $model): bool
-    {
-        // Only admins can restore users
-        return $user->type === 'admin' &&
-            $user->hasPermissionTo('users.restore.'.$model->id);
-    }
-    public function forceDelete(User $user, User $model): bool
-    {
-        // Only admins can permanently delete users
-        return $user->type === 'admin' &&
-            $user->hasPermissionTo('users.force-delete.'.$model->id);
+        return $user->type === 'admin' && $user->hasPermissionTo('change_user_status');
     }
 }

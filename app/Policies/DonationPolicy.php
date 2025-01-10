@@ -12,24 +12,26 @@ class DonationPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('donations.view.*');
+        return $user->hasPermissionTo('view_donations');
     }
 
     public function view(User $user, Donation $donation): bool
     {
+        if (!$user->hasPermissionTo('view_donations')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('donations.view.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('donations.view.*') &&
-                $donation->campaign->association->created_by === $user->id;
+            return $donation->campaign->association->created_by === $user->id;
         }
 
         // Donors can only view their own donations
         if ($user->type === 'donor') {
-            return $user->hasPermissionTo('donations.view.*') &&
-                $donation->donor_id === $user->id;
+            return $donation->donor_id === $user->id;
         }
 
         return false;
@@ -37,18 +39,21 @@ class DonationPolicy
 
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('donations.create.*');
+        return $user->hasPermissionTo('create_donations');
     }
 
     public function changeStatus(User $user, Donation $donation): bool
     {
+        if (!$user->hasPermissionTo('change_donation_status')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('donations.change-status.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('donations.change-status.*') &&
-                $donation->campaign->association->created_by === $user->id;
+            return $donation->campaign->association->created_by === $user->id;
         }
 
         return false;

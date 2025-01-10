@@ -218,5 +218,96 @@ return [
                 'share_amount_less_than_goal' => 'Share amount must be less than goal amount',
             ],
         ],
+        'role' => [
+            'label' => 'Role',
+            'plural_label' => 'Roles',
+            'navigation_label' => 'Roles',
+            'navigation_group' => 'User Management',
+
+            // Fields
+            'id' => 'ID',
+            'name' => 'Name',
+            'guard_name' => 'Guard Name',
+            'permissions' => 'Permissions',
+            'permissions_count' => 'Permissions Count',
+            'created_at' => 'Created At',
+
+            // Actions
+            'create' => 'Create Role',
+            'edit' => 'Edit Role',
+            'delete' => 'Delete Role',
+            'delete_confirmation' => 'Are you sure you want to delete this role?',
+
+            // Messages
+            'created' => 'Role created successfully',
+            'updated' => 'Role updated successfully',
+            'deleted' => 'Role deleted successfully',
+
+            // Permission Groups
+            'permissions_groups' => [
+                'users' => [
+                    'all' => 'All User Permissions',
+                    'view users' => 'View Users',
+                    'create users' => 'Create Users',
+                    'update users' => 'Update Users',
+                    'delete users' => 'Delete Users',
+                    'change user status' => 'Change User Status',
+                    'restore users' => 'Restore Users',
+                    'force delete users' => 'Force Delete Users',
+                ],
+                'associations' => [
+                    'all' => 'All Association Permissions',
+                    'view associations' => 'View Associations',
+                    'create associations' => 'Create Associations',
+                    'update associations' => 'Update Associations',
+                    'delete associations' => 'Delete Associations',
+                    'change association status' => 'Change Association Status',
+                ],
+                'campaigns' => [
+                    'all' => 'All Campaign Permissions',
+                    'view campaigns' => 'View Campaigns',
+                    'create campaigns' => 'Create Campaigns',
+                    'update campaigns' => 'Update Campaigns',
+                    'delete campaigns' => 'Delete Campaigns',
+                    'change campaign status' => 'Change Campaign Status',
+                    'restore campaigns' => 'Restore Campaigns',
+                    'force delete campaigns' => 'Force Delete Campaigns',
+                    'publish campaigns' => 'Publish Campaigns',
+                ],
+                'donations' => [
+                    'all' => 'All Donation Permissions',
+                    'view donations' => 'View Donations',
+                    'create donations' => 'Create Donations',
+                    'change donation status' => 'Change Donation Status',
+                ],
+                'withdrawals' => [
+                    'all' => 'All Withdrawal Permissions',
+                    'view withdrawals' => 'View Withdrawals',
+                    'create withdrawals' => 'Create Withdrawals',
+                    'update withdrawals' => 'Update Withdrawals',
+                    'delete withdrawals' => 'Delete Withdrawals',
+                    'approve withdrawals' => 'Approve Withdrawals',
+                    'reject withdrawals' => 'Reject Withdrawals',
+                ],
+                'donation_categories' => [
+                    'all' => 'All Donation Category Permissions',
+                    'view donation categories' => 'View Categories',
+                    'create donation categories' => 'Create Categories',
+                    'update donation categories' => 'Update Categories',
+                    'delete donation categories' => 'Delete Categories',
+                ],
+                'expenditures' => [
+                    'all' => 'All Expenditure Permissions',
+                    'view expenditures' => 'View Expenditures',
+                    'create expenditures' => 'Create Expenditures',
+                    'update expenditures' => 'Update Expenditures',
+                    'delete expenditures' => 'Delete Expenditures',
+                ],
+                'dashboard' => [
+                    'all' => 'All Dashboard Permissions',
+                    'view dashboard' => 'View Dashboard',
+                ],
+            ],
+        ],
     ],
 ];

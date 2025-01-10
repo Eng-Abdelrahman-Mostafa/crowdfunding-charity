@@ -32,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy('Donation', \App\Policies\DonationPolicy::class);
         Gate::policy('Withdrawal', \App\Policies\WithdrawalPolicy::class);
         Gate::policy('Expenditure', \App\Policies\ExpenditurePolicy::class);
+        Gate::policy('Role', \App\Policies\RolePolicy::class);
     }
 }

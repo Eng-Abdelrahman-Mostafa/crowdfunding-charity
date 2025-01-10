@@ -12,19 +12,22 @@ class ExpenditurePolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('expenditures.view.*');
+        return $user->hasPermissionTo('view_expenditures');
     }
 
     public function view(User $user, Expenditure $expenditure): bool
     {
+        if (!$user->hasPermissionTo('view_expenditures')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('expenditures.view.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('expenditures.view.*') &&
-                ($expenditure->campaign->association->created_by === $user->id ||
-                    $expenditure->created_by === $user->id);
+            return $expenditure->campaign->association->created_by === $user->id ||
+                $expenditure->created_by === $user->id;
         }
 
         return false;
@@ -32,19 +35,22 @@ class ExpenditurePolicy
 
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('expenditures.create.*');
+        return $user->hasPermissionTo('create_expenditures');
     }
 
     public function update(User $user, Expenditure $expenditure): bool
     {
+        if (!$user->hasPermissionTo('update_expenditures')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('expenditures.update.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('expenditures.update.*') &&
-                ($expenditure->campaign->association->created_by === $user->id ||
-                    $expenditure->created_by === $user->id);
+            return $expenditure->campaign->association->created_by === $user->id ||
+                $expenditure->created_by === $user->id;
         }
 
         return false;
@@ -52,14 +58,17 @@ class ExpenditurePolicy
 
     public function delete(User $user, Expenditure $expenditure): bool
     {
+        if (!$user->hasPermissionTo('delete_expenditures')) {
+            return false;
+        }
+
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('expenditures.delete.*');
+            return true;
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('expenditures.delete.*') &&
-                ($expenditure->campaign->association->created_by === $user->id ||
-                    $expenditure->created_by === $user->id);
+            return $expenditure->campaign->association->created_by === $user->id ||
+                $expenditure->created_by === $user->id;
         }
 
         return false;

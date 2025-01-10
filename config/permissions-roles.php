@@ -2,201 +2,171 @@
 
 return [
     "permissions" => [
-        "super-admin" => [
-            [
-                'name' => '*.*.*',
-                'guard_name' => 'web',
-            ]
-        ],
         "users" => [
             [
-                'name' => 'users.*.*',
+                'name' => 'view_users',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'users.view.*',
+                'name' => 'create_users',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'users.create.*',
+                'name' => 'update_users',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'users.update.*',
+                'name' => 'delete_users',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'users.delete.*',
+                'name' => 'change_user_status',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'users.change-status.*',
+                'name' => 'restore_users',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'users.restore.*',
-                'guard_name' => 'web',
-            ],
-            [
-                'name' => 'users.force-delete.*',
+                'name' => 'force_delete_users',
                 'guard_name' => 'web',
             ],
         ],
         "associations" => [
             [
-                'name' => 'associations.*.*',
+                'name' => 'view_associations',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'associations.view.*',
+                'name' => 'create_associations',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'associations.create.*',
+                'name' => 'update_associations',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'associations.update.*',
+                'name' => 'delete_associations',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'associations.delete.*',
-                'guard_name' => 'web',
-            ],
-            [
-                'name' => 'associations.change-status.*',
+                'name' => 'change_association_status',
                 'guard_name' => 'web',
             ],
         ],
         "campaigns" => [
             [
-                'name' => 'campaigns.*.*',
+                'name' => 'view_campaigns',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'campaigns.view.*',
+                'name' => 'create_campaigns',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'campaigns.create.*',
+                'name' => 'update_campaigns',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'campaigns.update.*',
+                'name' => 'delete_campaigns',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'campaigns.delete.*',
+                'name' => 'change_campaign_status',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'campaigns.change-status.*',
+                'name' => 'restore_campaigns',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'campaigns.publish.*',
+                'name' => 'force_delete_campaigns',
+                'guard_name' => 'web',
+            ],
+            [
+                'name' => 'publish_campaigns',
                 'guard_name' => 'web',
             ],
         ],
         "donations" => [
             [
-                'name' => 'donations.*.*',
+                'name' => 'view_donations',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'donations.view.*',
+                'name' => 'create_donations',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'donations.create.*',
-                'guard_name' => 'web',
-            ],
-            [
-                'name' => 'donations.change-status.*',
+                'name' => 'change_donation_status',
                 'guard_name' => 'web',
             ],
         ],
         "withdrawals" => [
             [
-                'name' => 'withdrawals.*.*',
+                'name' => 'view_withdrawals',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'withdrawals.view.*',
+                'name' => 'create_withdrawals',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'withdrawals.create.*',
+                'name' => 'update_withdrawals',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'withdrawals.update.*',
+                'name' => 'delete_withdrawals',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'withdrawals.delete.*',
+                'name' => 'approve_withdrawals',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'withdrawals.approve.*',
-                'guard_name' => 'web',
-            ],
-            [
-                'name' => 'withdrawals.reject.*',
+                'name' => 'reject_withdrawals',
                 'guard_name' => 'web',
             ],
         ],
-        "donation-categories" => [
+        "donation_categories" => [
             [
-                'name' => 'donation-categories.*.*',
+                'name' => 'view_donation_categories',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'donation-categories.view.*',
+                'name' => 'create_donation_categories',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'donation-categories.create.*',
+                'name' => 'update_donation_categories',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'donation-categories.update.*',
-                'guard_name' => 'web',
-            ],
-            [
-                'name' => 'donation-categories.delete.*',
+                'name' => 'delete_donation_categories',
                 'guard_name' => 'web',
             ],
         ],
         "expenditures" => [
             [
-                'name' => 'expenditures.*.*',
+                'name' => 'view_expenditures',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'expenditures.view.*',
+                'name' => 'create_expenditures',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'expenditures.create.*',
+                'name' => 'update_expenditures',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'expenditures.update.*',
-                'guard_name' => 'web',
-            ],
-            [
-                'name' => 'expenditures.delete.*',
+                'name' => 'delete_expenditures',
                 'guard_name' => 'web',
             ],
         ],
         "dashboard" => [
             [
-                'name' => 'dashboard.*.*',
-                'guard_name' => 'web',
-            ],
-            [
-                'name' => 'dashboard.view.*',
+                'name' => 'view_dashboard',
                 'guard_name' => 'web',
             ],
         ],
@@ -205,26 +175,71 @@ return [
         "super-admin" => [
             'guard_name' => 'web',
             'permissions' => [
-                '*.*.*',
+                'view_users',
+                'create_users',
+                'update_users',
+                'delete_users',
+                'change_user_status',
+                'restore_users',
+                'force_delete_users',
+                'view_associations',
+                'create_associations',
+                'update_associations',
+                'delete_associations',
+                'change_association_status',
+                'view_campaigns',
+                'create_campaigns',
+                'update_campaigns',
+                'delete_campaigns',
+                'change_campaign_status',
+                'restore_campaigns',
+                'force_delete_campaigns',
+                'publish_campaigns',
+                'view_donations',
+                'create_donations',
+                'change_donation_status',
+                'view_withdrawals',
+                'create_withdrawals',
+                'update_withdrawals',
+                'delete_withdrawals',
+                'approve_withdrawals',
+                'reject_withdrawals',
+                'view_donation_categories',
+                'create_donation_categories',
+                'update_donation_categories',
+                'delete_donation_categories',
+                'view_expenditures',
+                'create_expenditures',
+                'update_expenditures',
+                'delete_expenditures',
+                'view_dashboard',
             ]
         ],
         "association-manager" => [
             'guard_name' => 'web',
             'permissions' => [
-                'dashboard.view.*',
-                'campaigns.*.*',
-                'donations.view.*',
-                'withdrawals.create.*',
-                'withdrawals.view.*',
-                'expenditures.*.*',
+                'view_dashboard',
+                'view_campaigns',
+                'create_campaigns',
+                'update_campaigns',
+                'delete_campaigns',
+                'change_campaign_status',
+                'publish_campaigns',
+                'view_donations',
+                'view_withdrawals',
+                'create_withdrawals',
+                'view_expenditures',
+                'create_expenditures',
+                'update_expenditures',
+                'delete_expenditures',
             ]
         ],
         "donor" => [
             'guard_name' => 'web',
             'permissions' => [
-                'campaigns.view.*',
-                'donations.create.*',
-                'donations.view.*',
+                'view_campaigns',
+                'create_donations',
+                'view_donations',
             ]
         ],
     ]

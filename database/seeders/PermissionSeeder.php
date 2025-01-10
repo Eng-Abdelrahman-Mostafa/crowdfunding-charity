@@ -18,17 +18,9 @@ class PermissionSeeder extends Seeder
         // Create permissions from config
         $permissionsGroups = config('permissions-roles.permissions');
 
-        // Replace each , with a dot in the permission names
-        $permissionsGroups = array_map(function ($group) {
-            return array_map(function ($permission) {
-                $permission['name'] = str_replace(',', '.', $permission['name']);
-                return $permission;
-            }, $group);
-        }, $permissionsGroups);
-
         // Create permissions in database
-        foreach ($permissionsGroups as $group) {
-            foreach ($group as $permission) {
+        foreach ($permissionsGroups as $groupPermissions) {
+            foreach ($groupPermissions as $permission) {
                 Permission::firstOrCreate(
                     ['name' => $permission['name']],
                     ['guard_name' => $permission['guard_name']]
@@ -39,26 +31,18 @@ class PermissionSeeder extends Seeder
         // Create roles from config
         $roles = config('permissions-roles.roles');
 
-        // Replace each , with a dot in the role permissions
-        $roles = array_map(function ($role) {
-            $role['permissions'] = array_map(function ($permission) {
-                return str_replace(',', '.', $permission);
-            }, $role['permissions']);
-            return $role;
-        }, $roles);
-
         // Create roles and assign permissions
-        foreach ($roles as $roleName => $roleValue) {
+        foreach ($roles as $roleName => $roleConfig) {
             $role = Role::firstOrCreate(
                 ['name' => $roleName],
-                ['guard_name' => $roleValue['guard_name']]
+                ['guard_name' => $roleConfig['guard_name']]
             );
 
             // Sync permissions for the role
-            $role->syncPermissions($roleValue['permissions']);
+            $role->syncPermissions($roleConfig['permissions']);
         }
 
-        // Create super admin user if it doesn't exist
+        // Create admin user if it doesn't exist
         $adminUser = User::firstOrCreate(
             ['email' => 'admin@example.com'],
             [
@@ -70,7 +54,9 @@ class PermissionSeeder extends Seeder
         );
 
         // Assign super-admin role to admin user
-        $adminUser->assignRole('super-admin');
+        if (!$adminUser->hasRole('super-admin')) {
+            $adminUser->assignRole('super-admin');
+        }
 
         // Create a demo association manager
         $managerUser = User::firstOrCreate(
@@ -84,7 +70,9 @@ class PermissionSeeder extends Seeder
         );
 
         // Assign association-manager role
-        $managerUser->assignRole('association-manager');
+        if (!$managerUser->hasRole('association-manager')) {
+            $managerUser->assignRole('association-manager');
+        }
 
         // Create a demo donor
         $donorUser = User::firstOrCreate(
@@ -98,6 +86,8 @@ class PermissionSeeder extends Seeder
         );
 
         // Assign donor role
-        $donorUser->assignRole('donor');
+        if (!$donorUser->hasRole('donor')) {
+            $donorUser->assignRole('donor');
+        }
     }
 }

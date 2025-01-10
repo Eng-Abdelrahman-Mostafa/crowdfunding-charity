@@ -12,36 +12,36 @@ class AssociationPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('associations.view.*');
+        return $user->hasPermissionTo('view_associations');
     }
 
     public function view(User $user, Association $association): bool
     {
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('associations.view.*');
+            return $user->hasPermissionTo('view_associations');
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('associations.view.*') &&
+            return $user->hasPermissionTo('view_associations') &&
                 $association->created_by === $user->id;
         }
 
-        return $user->hasPermissionTo('associations.view.*');
+        return $user->hasPermissionTo('view_associations');
     }
 
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('associations.create.*');
+        return $user->hasPermissionTo('create_associations');
     }
 
     public function update(User $user, Association $association): bool
     {
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('associations.update.*');
+            return $user->hasPermissionTo('update_associations');
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('associations.update.*') &&
+            return $user->hasPermissionTo('update_associations') &&
                 $association->created_by === $user->id;
         }
 
@@ -51,11 +51,11 @@ class AssociationPolicy
     public function delete(User $user, Association $association): bool
     {
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('associations.delete.*');
+            return $user->hasPermissionTo('delete_associations');
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('associations.delete.*') &&
+            return $user->hasPermissionTo('delete_associations') &&
                 $association->created_by === $user->id;
         }
 
@@ -65,11 +65,11 @@ class AssociationPolicy
     public function changeStatus(User $user, Association $association): bool
     {
         if ($user->type === 'admin') {
-            return $user->hasPermissionTo('associations.change-status.*');
+            return $user->hasPermissionTo('change_association_status');
         }
 
         if ($user->type === 'association_manager') {
-            return $user->hasPermissionTo('associations.change-status.*') &&
+            return $user->hasPermissionTo('change_association_status') &&
                 $association->created_by === $user->id;
         }
 
