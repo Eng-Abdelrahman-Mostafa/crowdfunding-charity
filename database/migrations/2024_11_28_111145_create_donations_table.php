@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('donor_id')->constrained('users');
-            $table->foreignId('campaign_id')->constrained();
+            $table->foreignId('donor_id')->constrained('users')->nullOnDelete();
+            $table->foreignId('campaign_id')->constrained()->nullOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->decimal('amount', 10, 2);
             $table->string('currency', 3);
             $table->enum('payment_status', ['pending', 'success', 'failed']);

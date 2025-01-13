@@ -217,6 +217,12 @@ return [
             'validation' => [
                 'share_amount_less_than_goal' => 'يجب أن تكون قيمة السهم أقل من المبلغ المستهدف',
             ],
+
+            'view_donations' => 'عرض التبرعات',
+            'donations' => [
+                'title' => 'التبرعات',
+                'description' => 'إدارة تبرعات الحملة',
+            ],
         ],
         'role' => [
             'label' => 'دور',
@@ -308,6 +314,61 @@ return [
                     'view dashboard' => 'عرض لوحة التحكم',
                 ],
             ],
+        ],
+        'donation' => [
+            'label' => 'تبرع',
+            'plural_label' => 'التبرعات',
+            'navigation_label' => 'التبرعات',
+            'navigation_group' => 'إدارة التبرعات',
+            'total_donations' => 'إجمالي التبرعات',
+
+            // Form Fields
+            'donor' => 'المتبرع',
+            'campaign' => 'الحملة',
+            'amount' => 'المبلغ',
+            'currency' => 'العملة',
+            'status' => 'الحالة',
+            'payment_method' => 'طريقة الدفع',
+            'payment_with' => 'الدفع بواسطة',
+            'paid_at' => 'تاريخ الدفع',
+            'due_date' => 'تاريخ الاستحقاق',
+            'created_at' => 'تاريخ الإنشاء',
+
+            // Actions
+            'create' => 'إنشاء تبرع',
+            'edit' => 'تعديل التبرع',
+            'delete' => 'حذف التبرع',
+            'view' => 'عرض التبرع',
+            'view_title' => 'عرض تبرع :name',
+
+            // Messages
+            'created' => 'تم إنشاء التبرع بنجاح',
+            'deleted' => 'تم حذف التبرع بنجاح',
+
+            // Filters and Headers
+            'filter_by_status' => 'تصفية حسب الحالة',
+            'filter_by_payment_method' => 'تصفية حسب طريقة الدفع',
+            'filter_by_campaign' => 'تصفية حسب الحملة',
+            'filter_by_date' => 'تصفية حسب التاريخ',
+            'from_date' => 'من تاريخ',
+            'to_date' => 'إلى تاريخ',
+
+            // Status Options
+            'statuses' => [
+                'pending' => 'قيد الانتظار',
+                'success' => 'ناجح',
+                'failed' => 'فاشل',
+            ],
+
+            // Payment Methods
+            'payment_methods' => [
+                'online' => 'عبر الإنترنت',
+                'offline' => 'غير متصل',
+            ],
+            'validation' => [
+                'amount_exceeds_remaining_goal' => 'المبلغ يتجاوز المبلغ المتبقي',
+            ],
+            'attachments' => 'المرفقات',
         ],
     ],
 ];

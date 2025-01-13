@@ -217,6 +217,12 @@ return [
             'validation' => [
                 'share_amount_less_than_goal' => 'Share amount must be less than goal amount',
             ],
+
+            'view_donations' => 'View Donations',
+            'donations' => [
+                'title' => 'Donations',
+                'description' => 'Manage campaign donations',
+            ],
         ],
         'role' => [
             'label' => 'Role',
@@ -308,6 +314,62 @@ return [
                     'view dashboard' => 'View Dashboard',
                 ],
             ],
+        ],
+        'donation' => [
+            'label' => 'Donation',
+            'plural_label' => 'Donations',
+            'navigation_label' => 'Donations',
+            'navigation_group' => 'Donation Management',
+            'total_donations' => 'Total Donations',
+
+            // Form Fields
+            'donor' => 'Donor',
+            'campaign' => 'Campaign',
+            'amount' => 'Amount',
+            'currency' => 'Currency',
+            'status' => 'Status',
+            'payment_method' => 'Payment Method',
+            'payment_with' => 'Payment With',
+            'paid_at' => 'Paid At',
+            'due_date' => 'Due Date',
+            'created_at' => 'Created At',
+
+            // Actions
+            'create' => 'Create Donation',
+            'edit' => 'Edit Donation',
+            'delete' => 'Delete Donation',
+            'view' => 'View Donation',
+            'view_title' => 'Viewing Donation by :name',
+
+            // Messages
+            'created' => 'Donation created successfully',
+            'deleted' => 'Donation deleted successfully',
+
+            // Filters and Headers
+            'filter_by_status' => 'Filter by Status',
+            'filter_by_payment_method' => 'Filter by Payment Method',
+            'filter_by_campaign' => 'Filter by Campaign',
+            'filter_by_date' => 'Filter by Date',
+            'from_date' => 'From Date',
+            'to_date' => 'To Date',
+
+            // Status Options
+            'statuses' => [
+                'pending' => 'Pending',
+                'success' => 'Success',
+                'failed' => 'Failed',
+            ],
+
+            // Payment Methods
+            'payment_methods' => [
+                'online' => 'Online',
+                'offline' => 'Offline',
+            ],
+            'validation' => [
+                'amount_exceeds_remaining_goal' => 'The donation amount exceeds the remaining goal amount (:remaining)',
+            ],
+
+            'attachments' => 'Attachments',
         ],
     ],
 ];

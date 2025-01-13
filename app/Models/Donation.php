@@ -12,6 +12,7 @@ class Donation extends Model implements HasMedia
     protected $fillable = [
         'donor_id',
         'campaign_id',
+        'created_by',
         'amount',
         'currency',
         'payment_status',//pending, success, failed
@@ -30,6 +31,10 @@ class Donation extends Model implements HasMedia
     public function campaign()
     {
         return $this->belongsTo(Campaign::class, 'campaign_id');
+    }
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
     public function registerMediaCollections(): void
     {
