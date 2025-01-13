@@ -33,7 +33,8 @@ class CreateCampaign extends CreateRecord
 
         // Handle thumbnail upload
         if (isset($data['thumbnail'])) {
-            $campaign->copyMediaFromDisk($data['thumbnail'], 'public', 'thumbnail');
+            $campaign->addMediaFromDisk($data['thumbnail'], 'public')
+                ->toMediaCollection('thumbnail');
         }
 
         return $campaign;

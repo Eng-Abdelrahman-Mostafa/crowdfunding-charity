@@ -19,23 +19,10 @@ class EditUser extends EditRecord
 
     protected function mutateFormData(array $data): array
     {
-        // Only hash the password if it's being updated
-        if (isset($data['password']) && $data['password']) {
-            $data['password'] = Hash::make($data['password']);
-        } else {
-            // If password field is empty, remove it from the data array
+        // Remove password fields if they're empty
+        if (empty($data['password'])) {
             unset($data['password']);
             unset($data['password_confirmation']);
-        }
-
-        // Load the existing roles for the user
-        if (in_array($this->record->type, ['admin', 'association_manager'])) {
-            $data['roles'] = $this->record->roles->pluck('id')->toArray();
-        }
-
-        // Load the existing associations for association managers
-        if ($this->record->type === 'association_manager') {
-            $data['associations'] = $this->record->associations->pluck('id')->toArray();
         }
 
         return $data;
@@ -43,6 +30,14 @@ class EditUser extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
+        // Handle password separately
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+        unset($data['password_confirmation']);
+
         // Update basic user data
         $record->update($data);
 
@@ -60,16 +55,6 @@ class EditUser extends EditRecord
         }
 
         return $record;
-    }
-
-    protected function beforeSave(): void
-    {
-        // Add any additional validation or checks before saving
-    }
-
-    protected function afterSave(): void
-    {
-        // Add any notifications or additional logic after saving
     }
 
     protected function getHeaderActions(): array

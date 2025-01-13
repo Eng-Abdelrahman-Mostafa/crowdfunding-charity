@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\CampaignResource\RelationManagers\DonationsRelationManager;
 use App\Models\Campaign;
+use App\Models\Donation;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -237,6 +239,18 @@ class CampaignResource extends Resource
                     ->label(__('filament.resource.campaign.toggle_status'))
                     ->visible(fn (Campaign $record): bool => auth()->user()->can('changeStatus', $record)),
 
+                Action::make('view_donations')
+                    ->icon('heroicon-o-gift')
+                    ->label(__('filament.resource.campaign.view_donations'))
+                    ->url(fn (Campaign $record): string =>
+                    DonationResource::getUrl('index', [
+                        'tableFilters[campaign][value]' => $record->id
+                    ])
+                    )
+                    ->visible(fn (Campaign $record): bool =>
+                    auth()->user()->can('viewAny', Donation::class)
+                    ),
+
                 EditAction::make()
                     ->label(__('filament.resource.campaign.edit'))
                     ->visible(fn (Campaign $record): bool => auth()->user()->can('update', $record)),
@@ -244,14 +258,25 @@ class CampaignResource extends Resource
                 DeleteAction::make()
                     ->label(__('filament.resource.campaign.delete'))
                     ->visible(fn (Campaign $record): bool => auth()->user()->can('delete', $record)),
+
             ]);
     }
-
     public static function getRelations(): array
     {
         return [
-            //
+            DonationsRelationManager::class,
         ];
+    }
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        // If user is association manager, only show donations for their associations
+        if (!auth()->user()->hasRole('super-admin')) {
+            $query->whereIn('association_id', auth()->user()->associations->pluck('id'));
+        }
+
+        return $query;
     }
 
     public static function getPages(): array
