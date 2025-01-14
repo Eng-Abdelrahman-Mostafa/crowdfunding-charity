@@ -166,7 +166,7 @@ return [
             'navigation_label' => 'Campaigns',
             'navigation_group' => 'Campaign Management',
             'total_campaigns' => 'Total Campaigns',
-
+            'view_expenditures' => 'View Expenditures',
             // Form Fields
             'thumbnail' => 'Thumbnail',
             'name' => 'Name',
@@ -370,6 +370,40 @@ return [
             ],
 
             'attachments' => 'Attachments',
+        ],
+        'expenditure' => [
+            'label' => 'Expenditure',
+            'plural_label' => 'Expenditures',
+            'navigation_label' => 'Expenditures',
+            'navigation_group' => 'Campaign Management',
+            'total_expenditures' => 'Total Expenditures',
+
+            // Form Fields
+            'name' => 'Name',
+            'amount' => 'Amount',
+            'date' => 'Date',
+            'description' => 'Description',
+            'receipt' => 'Receipt',
+            'campaign' => 'Campaign',
+            'created_by' => 'Created By',
+
+            // Actions
+            'create' => 'Create Expenditure',
+            'edit' => 'Edit Expenditure',
+            'delete' => 'Delete Expenditure',
+            'view' => 'View Expenditure',
+
+            // Messages
+            'created' => 'Expenditure created successfully',
+            'updated' => 'Expenditure updated successfully',
+            'deleted' => 'Expenditure deleted successfully',
+
+            // Filters and Headers
+            'filter_by_campaign' => 'Filter by Campaign',
+            'filter_by_date' => 'Filter by Date',
+            'from_date' => 'From Date',
+            'to_date' => 'To Date',
+            'all' => 'All',
         ],
     ],
 ];

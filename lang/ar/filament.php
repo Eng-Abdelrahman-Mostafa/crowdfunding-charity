@@ -165,7 +165,7 @@ return [
             'navigation_label' => 'الحملات',
             'navigation_group' => 'إدارة الحملات',
             'total_campaigns' => 'إجمالي الحملات',
-
+            'view_expenditures' => 'عرض المصروفات',
             // Form Fields
             'thumbnail' => 'الصورة',
             'name' => 'الاسم',
@@ -369,6 +369,40 @@ return [
                 'amount_exceeds_remaining_goal' => 'المبلغ يتجاوز المبلغ المتبقي',
             ],
             'attachments' => 'المرفقات',
+        ],
+        'expenditure' => [
+            'label' => 'مصروف',
+            'plural_label' => 'المصروفات',
+            'navigation_label' => 'المصروفات',
+            'navigation_group' => 'إدارة الحملات',
+            'total_expenditures' => 'إجمالي المصروفات',
+
+            // Form Fields
+            'name' => 'الاسم',
+            'amount' => 'المبلغ',
+            'date' => 'التاريخ',
+            'description' => 'الوصف',
+            'receipt' => 'الإيصال',
+            'campaign' => 'الحملة',
+            'created_by' => 'تم الإنشاء بواسطة',
+
+            // Actions
+            'create' => 'إنشاء مصروف',
+            'edit' => 'تعديل المصروف',
+            'delete' => 'حذف المصروف',
+            'view' => 'عرض المصروف',
+
+            // Messages
+            'created' => 'تم إنشاء المصروف بنجاح',
+            'updated' => 'تم تحديث المصروف بنجاح',
+            'deleted' => 'تم حذف المصروف بنجاح',
+
+            // Filters and Headers
+            'filter_by_campaign' => 'تصفية حسب الحملة',
+            'filter_by_date' => 'تصفية حسب التاريخ',
+            'from_date' => 'من تاريخ',
+            'to_date' => 'إلى تاريخ',
+            'all' => 'الكل',
         ],
     ],
 ];

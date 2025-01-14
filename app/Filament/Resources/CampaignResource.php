@@ -3,10 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CampaignResource\RelationManagers\DonationsRelationManager;
+use App\Filament\Resources\CampaignResource\RelationManagers\ExpendituresRelationManager;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
@@ -225,46 +227,49 @@ class CampaignResource extends Resource
                     ->label(__('filament.resource.campaign.filter_by_category')),
             ])
             ->actions([
-                Action::make('toggle_status')
-                    ->icon('heroicon-o-power')
-                    ->requiresConfirmation()
-                    ->action(fn (Campaign $record) => $record->update([
-                        'status' => $record->status === 'active' ? 'inactive' : 'active'
-                    ]))
-                    ->successNotification(
-                        notification: fn () => \Filament\Notifications\Notification::make()
-                            ->success()
-                            ->title(__('filament.resource.campaign.status_updated'))
-                    )
-                    ->label(__('filament.resource.campaign.toggle_status'))
-                    ->visible(fn (Campaign $record): bool => auth()->user()->can('changeStatus', $record)),
+                ActionGroup::make([
+                    Action::make('view_expenditures')
+                        ->icon('heroicon-o-banknotes')
+                        ->label(__('filament.resource.campaign.view_expenditures'))
+                        ->url(fn (Campaign $record): string =>
+                        ExpenditureResource::getUrl('index', [
+                            'tableFilters[campaign][value]' => $record->id
+                        ])
+                        )
+                        ->visible(fn (Campaign $record): bool =>
+                        auth()->user()->can('viewAny', Expenditure::class)
+                        ),
 
-                Action::make('view_donations')
-                    ->icon('heroicon-o-gift')
-                    ->label(__('filament.resource.campaign.view_donations'))
-                    ->url(fn (Campaign $record): string =>
-                    DonationResource::getUrl('index', [
-                        'tableFilters[campaign][value]' => $record->id
-                    ])
-                    )
-                    ->visible(fn (Campaign $record): bool =>
-                    auth()->user()->can('viewAny', Donation::class)
-                    ),
+                    Action::make('toggle_status')
+                        ->icon('heroicon-o-power')
+                        ->label(__('filament.resource.campaign.toggle_status'))
+                        ->requiresConfirmation()
+                        ->action(fn (Campaign $record) => $record->update([
+                            'status' => $record->status === 'active' ? 'inactive' : 'active'
+                        ]))
+                        ->visible(fn (Campaign $record): bool =>
+                        auth()->user()->can('changeStatus', $record)
+                        ),
 
-                EditAction::make()
-                    ->label(__('filament.resource.campaign.edit'))
-                    ->visible(fn (Campaign $record): bool => auth()->user()->can('update', $record)),
+                    EditAction::make()
+                        ->label(__('filament.resource.campaign.edit'))
+                        ->visible(fn (Campaign $record): bool =>
+                        auth()->user()->can('update', $record)
+                        ),
 
-                DeleteAction::make()
-                    ->label(__('filament.resource.campaign.delete'))
-                    ->visible(fn (Campaign $record): bool => auth()->user()->can('delete', $record)),
-
+                    DeleteAction::make()
+                        ->label(__('filament.resource.campaign.delete'))
+                        ->visible(fn (Campaign $record): bool =>
+                        auth()->user()->can('delete', $record)
+                        ),
+                ]),
             ]);
     }
     public static function getRelations(): array
     {
         return [
             DonationsRelationManager::class,
+            ExpendituresRelationManager::class,
         ];
     }
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
