@@ -64,7 +64,6 @@ class AdminPanelProvider extends PanelProvider
             ->breadcrumbs(true)
             ->maxContentWidth('full')
             ->sidebarCollapsibleOnDesktop()
-            ->databaseNotifications()
             ->brandName('منصة التبرعات')
             ->brandLogo(asset('images/logo.png'))
             ->favicon(asset('images/favicon.png'));
