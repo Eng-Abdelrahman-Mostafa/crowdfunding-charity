@@ -74,12 +74,12 @@ class WithdrawalPolicy
         return false;
     }
 
-    public function approve(User $user, Withdrawal $withdrawal): bool
+    public function approve(User $user, ?Withdrawal $withdrawal = null): bool
     {
         return $user->type === 'admin' && $user->hasPermissionTo('approve_withdrawals');
     }
 
-    public function reject(User $user, Withdrawal $withdrawal): bool
+    public function reject(User $user, ?Withdrawal $withdrawal = null): bool
     {
         return $user->type === 'admin' && $user->hasPermissionTo('reject_withdrawals');
     }

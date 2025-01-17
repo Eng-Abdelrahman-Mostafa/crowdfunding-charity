@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\CampaignResource\Actions\RequestWithdrawal;
 use App\Filament\Resources\CampaignResource\RelationManagers\DonationsRelationManager;
 use App\Filament\Resources\CampaignResource\RelationManagers\ExpendituresRelationManager;
 use App\Models\Campaign;
 use App\Models\Donation;
+use App\Models\Expenditure;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Tables\Actions\ActionGroup;
@@ -250,7 +252,7 @@ class CampaignResource extends Resource
                         ->visible(fn (Campaign $record): bool =>
                         auth()->user()->can('changeStatus', $record)
                         ),
-
+                    RequestWithdrawal::make(),
                     EditAction::make()
                         ->label(__('filament.resource.campaign.edit'))
                         ->visible(fn (Campaign $record): bool =>

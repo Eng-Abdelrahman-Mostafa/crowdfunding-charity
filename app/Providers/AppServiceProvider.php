@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\WithdrawalService;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -33,5 +34,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy('Withdrawal', \App\Policies\WithdrawalPolicy::class);
         Gate::policy('Expenditure', \App\Policies\ExpenditurePolicy::class);
         Gate::policy('Role', \App\Policies\RolePolicy::class);
+
+        $this->app->singleton(WithdrawalService::class);
     }
 }

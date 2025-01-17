@@ -404,5 +404,93 @@ return [
             'to_date' => 'إلى تاريخ',
             'all' => 'الكل',
         ],
+        'withdrawal' => [
+            'notifications' => [
+                'new_request' => 'طلب سحب جديد',
+                'new_request_body' => 'طلب سحب جديد بقيمة :amount من :association' . "\n" . 'للحملة: :campaign',
+                'view_request' => 'عرض الطلب',
+                'request_approved' => 'تم الموافقة على طلب السحب',
+                'request_rejected' => 'تم رفض طلب السحب',
+                'status_updated' => 'تم تحديث حالة طلب السحب',
+                'status_updated_body' => 'تم تحديث حالة طلب السحب الخاص بك بقيمة :amount من :association' . "\n" . 'للحملة: :campaign' . "\n" . 'الحالة الجديدة: :status',
+                'rejection_note' => 'سبب الرفض: :note',
+            ],
+
+            'label' => 'سحب',
+            'plural_label' => 'عمليات السحب',
+            'navigation_label' => 'عمليات السحب',
+            'navigation_group' => 'الإدارة المالية',
+            'total_withdrawals' => 'إجمالي عمليات السحب',
+
+            // Form Fields
+            'association' => 'الجمعية',
+            'campaign' => 'الحملة',
+            'amount' => 'المبلغ',
+            'status' => 'الحالة',
+            'note' => 'ملاحظة',
+            'requested_at' => 'تاريخ الطلب',
+            'processed_at' => 'تاريخ المعالجة',
+            'requester' => 'مقدم الطلب',
+            'processor' => 'المعالج',
+            'available_balance' => 'الرصيد المتاح: :amount',
+            'amount_helper' => 'أدخل المبلغ الذي تريد سحبه',
+            'rejection_note' => 'ملاحظة الرفض',
+
+            // Actions
+            'create' => 'إنشاء عملية سحب',
+            'edit' => 'تعديل عملية السحب',
+            'view' => 'عرض عملية السحب',
+            'delete' => 'حذف عملية السحب',
+            'approve' => 'الموافقة على عملية السحب',
+            'reject' => 'رفض عملية السحب',
+            'request_withdrawal' => 'طلب سحب',
+
+            // Messages
+            'created' => 'تم إنشاء طلب السحب بنجاح',
+            'updated' => 'تم تحديث عملية السحب بنجاح',
+            'deleted' => 'تم حذف عملية السحب بنجاح',
+            'approved' => 'تمت الموافقة على عملية السحب بنجاح',
+            'rejected' => 'تم رفض عملية السحب بنجاح',
+            'requested' => 'تم طلب السحب بنجاح',
+
+            // Confirmations
+            'approve_confirmation' => 'هل أنت متأكد أنك تريد الموافقة على عملية السحب هذه؟',
+            'reject_confirmation' => 'هل أنت متأكد أنك تريد رفض عملية السحب هذه؟',
+
+            // Status Options
+            'statuses' => [
+                'pending' => 'قيد الانتظار',
+                'success' => 'ناجح',
+                'failed' => 'فاشل',
+            ],
+
+            // Filters and Headers
+            'filter_by_status' => 'تصفية حسب الحالة',
+            'filter_by_association' => 'تصفية حسب الجمعية',
+            'filter_by_date' => 'تصفية حسب التاريخ',
+            'from_date' => 'من تاريخ',
+            'to_date' => 'إلى تاريخ',
+
+            // Validation
+            'validation' => [
+                'amount_exceeds_balance' => 'المبلغ المطلوب (:amount) يتجاوز الرصيد المتاح (:available)',
+                'invalid_amount' => 'المبلغ غير صالح',
+                'campaign_inactive' => 'الحملة غير نشطة',
+                'pending_request_exists' => 'يوجد طلب سحب معلق بالفعل لهذه الحملة',
+            ],
+
+            'actions' => [
+                'process_request' => 'معالجة الطلب',
+                'view_campaign' => 'عرض الحملة',
+                'download_receipt' => 'تحميل الإيصال',
+            ],
+
+            'status_messages' => [
+                'pending_approval' => 'في انتظار الموافقة',
+                'processing' => 'جاري المعالجة',
+                'completed' => 'تمت المعالجة',
+                'cancelled' => 'تم الإلغاء',
+            ],
+        ],
     ],
 ];

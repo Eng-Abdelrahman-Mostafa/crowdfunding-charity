@@ -92,6 +92,18 @@ class Campaign extends Model implements HasMedia
     {
         return $this->hasMany(Expenditure::class);
     }
+    public function withdrawals()
+    {
+        return $this->hasMany(Withdrawal::class);
+    }
+    public function getAvailableBalance(): float
+    {
+        $withdrawalsSum = $this->withdrawals()
+            ->whereIn('status', ['success', 'pending'])
+            ->sum('amount');
+
+        return $this->collected_amount - $withdrawalsSum;
+    }
 
     public function registerMediaCollections(): void
     {

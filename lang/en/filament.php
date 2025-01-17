@@ -405,5 +405,93 @@ return [
             'to_date' => 'To Date',
             'all' => 'All',
         ],
+        'withdrawal' => [
+            'notifications' => [
+                'new_request' => 'New Withdrawal Request',
+                'new_request_body' => 'New withdrawal request of :amount from :association' . "\n" . 'for campaign: :campaign',
+                'view_request' => 'View Request',
+                'request_approved' => 'Withdrawal Request Approved',
+                'request_rejected' => 'Withdrawal Request Rejected',
+                'status_updated' => 'Withdrawal Request Status Updated',
+                'status_updated_body' => 'Your withdrawal request of :amount from :association' . "\n" . 'for campaign: :campaign' . "\n" . 'has been updated to: :status',
+                'rejection_note' => 'Rejection Note: :note',
+            ],
+
+            'label' => 'Withdrawal',
+            'plural_label' => 'Withdrawals',
+            'navigation_label' => 'Withdrawals',
+            'navigation_group' => 'Financial Management',
+            'total_withdrawals' => 'Total Withdrawals',
+
+            // Form Fields
+            'association' => 'Association',
+            'campaign' => 'Campaign',
+            'amount' => 'Amount',
+            'status' => 'Status',
+            'note' => 'Note',
+            'requested_at' => 'Requested At',
+            'processed_at' => 'Processed At',
+            'requester' => 'Requester',
+            'processor' => 'Processor',
+            'available_balance' => 'Available Balance: :amount',
+            'amount_helper' => 'Enter the amount you want to withdraw',
+            'rejection_note' => 'Rejection Note',
+
+            // Actions
+            'create' => 'Create Withdrawal',
+            'edit' => 'Edit Withdrawal',
+            'view' => 'View Withdrawal',
+            'delete' => 'Delete Withdrawal',
+            'approve' => 'Approve Withdrawal',
+            'reject' => 'Reject Withdrawal',
+            'request_withdrawal' => 'Request Withdrawal',
+
+            // Messages
+            'created' => 'Withdrawal request created successfully',
+            'updated' => 'Withdrawal updated successfully',
+            'deleted' => 'Withdrawal deleted successfully',
+            'approved' => 'Withdrawal approved successfully',
+            'rejected' => 'Withdrawal rejected successfully',
+            'requested' => 'Withdrawal requested successfully',
+
+            // Confirmations
+            'approve_confirmation' => 'Are you sure you want to approve this withdrawal?',
+            'reject_confirmation' => 'Are you sure you want to reject this withdrawal?',
+
+            // Status Options
+            'statuses' => [
+                'pending' => 'Pending',
+                'success' => 'Success',
+                'failed' => 'Failed',
+            ],
+
+            // Filters and Headers
+            'filter_by_status' => 'Filter by Status',
+            'filter_by_association' => 'Filter by Association',
+            'filter_by_date' => 'Filter by Date',
+            'from_date' => 'From Date',
+            'to_date' => 'To Date',
+
+            // Validation
+            'validation' => [
+                'amount_exceeds_balance' => 'The requested amount (:amount) exceeds the available balance (:available)',
+                'invalid_amount' => 'The amount is invalid',
+                'campaign_inactive' => 'The campaign is inactive',
+                'pending_request_exists' => 'A pending withdrawal request already exists for this campaign',
+            ],
+
+            'actions' => [
+                'process_request' => 'Process Request',
+                'view_campaign' => 'View Campaign',
+                'download_receipt' => 'Download Receipt',
+            ],
+
+            'status_messages' => [
+                'pending_approval' => 'Pending Approval',
+                'processing' => 'Processing',
+                'completed' => 'Completed',
+                'cancelled' => 'Cancelled',
+            ],
+        ],
     ],
 ];
