@@ -223,6 +223,8 @@ return [
                 'title' => 'Donations',
                 'description' => 'Manage campaign donations',
             ],
+            'request_withdrawal' => 'Request Withdrawal',
+            'request-withdrawal' => 'Request-Withdrawal',
         ],
         'role' => [
             'label' => 'Role',

@@ -223,6 +223,9 @@ return [
                 'title' => 'التبرعات',
                 'description' => 'إدارة تبرعات الحملة',
             ],
+
+            'request_withdrawal'=> 'طلب سحب',
+            'request-withdrawal' => 'طلب-سحب',
         ],
         'role' => [
             'label' => 'دور',

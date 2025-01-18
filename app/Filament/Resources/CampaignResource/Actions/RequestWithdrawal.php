@@ -14,7 +14,7 @@ class RequestWithdrawal extends Action
 {
     public static function getDefaultName(): ?string
     {
-        return 'request_withdrawal';
+        return __('filament.resource.campaign.request-withdrawal');
     }
 
     protected function setUp(): void
