@@ -15,6 +15,7 @@ class Donation extends Model implements HasMedia
         'created_by',
         'amount',
         'currency',
+        'donate_anonymously',//true, false
         'payment_status',//pending, success, failed
         'payment_method',//online, offline
         'payment_with',//payment gateway, bank, bkash, rocket etc

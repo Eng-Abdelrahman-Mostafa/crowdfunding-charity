@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('campaign_id')->constrained()->nullOnDelete();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->decimal('amount', 10, 2);
+            $table->boolean('donate_anonymously')->default(false);
             $table->string('currency', 3);
             $table->enum('payment_status', ['pending', 'success', 'failed']);
             $table->enum('payment_method', ['online', 'offline']);
