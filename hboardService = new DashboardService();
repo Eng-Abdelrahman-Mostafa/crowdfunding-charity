@@ -1,0 +1,25 @@
+[1mdiff --git a/app/Notifications/WithdrawalStatusUpdatedNotification.php b/app/Notifications/WithdrawalStatusUpdatedNotification.php[m
+[1mindex 6cd8c0d..0d46832 100644[m
+[1m--- a/app/Notifications/WithdrawalStatusUpdatedNotification.php[m
+[1m+++ b/app/Notifications/WithdrawalStatusUpdatedNotification.php[m
+[36m@@ -58,7 +58,7 @@[m [mpublic function toArray(object $notifiable): array[m
+             'actions' => [[m
+                 [[m
+                     'label' => 'View Details',[m
+[31m-                    'url' => route('filament.admin.resources.withdrawals.index'),[m
+[32m+[m[32m                    'url' => url('/portal/withdrawals'), // Use URL helper instead of route helper[m
+                     'icon' => 'heroicon-o-eye',[m
+                 ],[m
+             ],[m
+[1mdiff --git a/bootstrap/providers.php b/bootstrap/providers.php[m
+[1mindex 0e6a985..1f1ee1f 100644[m
+[1m--- a/bootstrap/providers.php[m
+[1m+++ b/bootstrap/providers.php[m
+[36m@@ -4,6 +4,7 @@[m
+     App\Providers\AppServiceProvider::class,[m
+     App\Providers\Filament\AdminPanelProvider::class,[m
+     App\Providers\FiltersServiceProvider::class,[m
+[32m+[m[32m    App\Providers\DashboardServiceProvider::class,[m
+     Spatie\Permission\PermissionServiceProvider::class,[m
+     App\Providers\EventServiceProvider::class,[m
+ ];[m

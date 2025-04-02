@@ -58,7 +58,7 @@ class WithdrawalStatusUpdatedNotification extends Notification
             'actions' => [
                 [
                     'label' => 'View Details',
-                    'url' => route('filament.admin.resources.withdrawals.index'),
+                    'url' => url('/portal/withdrawals'), // Use URL helper instead of route helper
                     'icon' => 'heroicon-o-eye',
                 ],
             ],
