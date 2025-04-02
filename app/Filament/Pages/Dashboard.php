@@ -2,49 +2,33 @@
 
 namespace App\Filament\Pages;
 
-use App\Services\DashboardService;
 use Filament\Pages\Dashboard as BaseDashboard;
-use Filament\Widgets\AccountWidget;
-use App\Filament\Widgets\StatsOverview;
-use App\Filament\Widgets\MonthlyDonationsChart;
-use App\Filament\Widgets\CampaignsStatusChart;
-use App\Filament\Widgets\TopCampaignsWidget;
-use App\Filament\Widgets\RecentDonationsWidget;
-use App\Filament\Widgets\RecentWithdrawalsWidget;
-use App\Filament\Widgets\DonationsByCategoryChart;
 
 class Dashboard extends BaseDashboard
 {
     protected static ?string $navigationIcon = 'heroicon-o-home';
 
-    protected static string $view = 'filament.pages.dashboard';
-
-    // Define widget widths
-    protected string $statsWidgetColumnSpan = 'full';
-    protected int $chartWidgetColumnSpan = 6;
-    protected int $tableWidgetColumnSpan = 6;
-
+    // We only need to use getHeaderWidgets() OR getWidgets(), not both
+    // Using getWidgets() is more consistent with Filament 3
     public function getWidgets(): array
     {
         // Check if user is admin or association manager
         $isAdmin = auth()->user()->type === 'admin';
 
-        $widgets = [];
-
         if ($isAdmin) {
             // Admin widgets
-            $widgets = [
-                StatsOverview::class,
-                MonthlyDonationsChart::class,
-                CampaignsStatusChart::class,
-                DonationsByCategoryChart::class,
-                TopCampaignsWidget::class,
-                RecentDonationsWidget::class,
-                RecentWithdrawalsWidget::class,
+            return [
+                \App\Filament\Widgets\StatsOverview::class,
+                \App\Filament\Widgets\MonthlyDonationsChart::class,
+                \App\Filament\Widgets\CampaignsStatusChart::class,
+                \App\Filament\Widgets\DonationsByCategoryChart::class,
+                \App\Filament\Widgets\TopCampaignsWidget::class,
+                \App\Filament\Widgets\RecentDonationsWidget::class,
+                \App\Filament\Widgets\RecentWithdrawalsWidget::class,
             ];
         } else {
             // Association manager widgets
-            $widgets = [
+            return [
                 \App\Filament\Widgets\AssociationManagerStatsOverview::class,
                 \App\Filament\Widgets\AssociationManagerMonthlyDonationsChart::class,
                 \App\Filament\Widgets\AssociationManagerCampaignsStatusChart::class,
@@ -54,8 +38,18 @@ class Dashboard extends BaseDashboard
                 \App\Filament\Widgets\AssociationManagerRecentWithdrawalsWidget::class,
             ];
         }
+    }
 
-        return $widgets;
+    // Override but return null to prevent unexpected behavior
+    protected function getHeaderWidgets(): array
+    {
+        return [];
+    }
+
+    // Override but return null to prevent unexpected behavior
+    protected function getFooterWidgets(): array
+    {
+        return [];
     }
 
     public function getColumns(): int | array

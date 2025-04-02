@@ -8,16 +8,18 @@ use Filament\Widgets\ChartWidget;
 class MonthlyDonationsChart extends ChartWidget
 {
     protected static ?string $heading = 'Monthly Donations';
-
     protected static ?int $sort = 2;
-
     protected static ?string $pollingInterval = '60s';
-
     protected int | string | array $columnSpan = 8;
+    protected static ?int $chartHeight = 300; // Set a fixed height
 
     public function getHeading(): string
     {
         return __('dashboard.Monthly Donations');
+    }
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'admin';
     }
 
     protected function getData(): array

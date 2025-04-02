@@ -5,6 +5,8 @@ namespace App\Filament\Widgets;
 use App\Services\DashboardService;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -15,8 +17,21 @@ class TopCampaignsWidget extends BaseWidget
     protected static ?int $sort = 5;
 
     protected int | string | array $columnSpan = 12;
-
     public ?Collection $records = null;
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'admin';
+    }
+
+    public function getHeading(): string
+    {
+        return __('dashboard.Top Campaigns by Donations');
+    }
+
+    public function getTableHeading(): string|Htmlable|null
+    {
+        return __('dashboard.Top Campaigns by Donations');
+    }
 
     protected function getTableQuery(): Builder
     {

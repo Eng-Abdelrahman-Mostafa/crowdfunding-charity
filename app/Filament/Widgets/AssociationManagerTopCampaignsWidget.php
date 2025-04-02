@@ -17,11 +17,21 @@ class AssociationManagerTopCampaignsWidget extends BaseWidget
     protected int | string | array $columnSpan = 12;
 
     public ?Collection $records = null;
+    public function getHeading(): string
+    {
+        return __('dashboard.Your Top Campaigns by Donations');
+    }
+    public function getTableHeading(): string|null
+    {
+        return __('dashboard.Your Top Campaigns by Donations');
+    }
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'association_manager';
+    }
 
     protected function getTableQuery(): Builder
     {
-        // This is a placeholder. We're not actually using this method directly.
-        // Instead, we're manually loading data in getTableContent().
         return \App\Models\Campaign::query()->limit(0);
     }
 

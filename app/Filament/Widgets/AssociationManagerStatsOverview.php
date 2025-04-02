@@ -9,15 +9,17 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class AssociationManagerStatsOverview extends BaseWidget
 {
     protected static ?string $pollingInterval = '30s';
-
     protected static ?int $sort = 1;
-
     protected int | string | array $columnSpan = 12;
+
+    // Add this to ensure the widget is only visible to association managers
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'association_manager';
+    }
     public function getStats(): array
     {
         $dashboardService = new DashboardService();
-
-        // Use select to avoid ambiguous column names
         $stats = $dashboardService->getAssociationManagerStats(auth()->id());
 
         return [
@@ -36,15 +38,12 @@ class AssociationManagerStatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-banknotes')
                 ->color('success'),
 
-            Stat::make(__('dashboard.Goal Amount'), number_format($stats['goal_amount'], 2) . ' ' . config('app.currency', 'EGP'))
-                ->description(__('dashboard.Total fundraising goal'))
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
-                ->color('danger'),
+            // Removing Goal Amount since it may duplicate with Total Donations in meaning for assoc managers
 
             Stat::make(__('dashboard.Expenditures'), number_format($stats['expenditures_amount'], 2) . ' ' . config('app.currency', 'EGP'))
                 ->description(__('dashboard.Total spent from campaigns'))
                 ->descriptionIcon('heroicon-m-credit-card')
-                ->color('warning'),
+                ->color('danger'),
 
             Stat::make(__('dashboard.Withdrawals'), number_format($stats['total_withdrawals'], 2) . ' ' . config('app.currency', 'EGP'))
                 ->description(__('dashboard.:count pending withdrawals', ['count' => $stats['pending_withdrawals']]))

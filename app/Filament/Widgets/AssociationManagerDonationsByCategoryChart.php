@@ -8,11 +8,17 @@ use Filament\Widgets\ChartWidget;
 class AssociationManagerDonationsByCategoryChart extends ChartWidget
 {
     protected static ?string $heading = 'Donations by Category';
-
     protected static ?int $sort = 4;
-
     protected int | string | array $columnSpan = 4;
-
+    protected static ?int $chartHeight = 300;
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'association_manager';
+    }
+    public function getHeading(): string
+    {
+        return __('dashboard.Donations by Category');
+    }
     protected function getData(): array
     {
         $dashboardService = new DashboardService();

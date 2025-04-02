@@ -16,7 +16,18 @@ class AssociationManagerRecentDonationsWidget extends BaseWidget
 
     protected int | string | array $columnSpan = 6;
     public ?Collection $records = null;
-
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'association_manager';
+    }
+    public function getHeading(): string
+    {
+        return __('dashboard.Recent Donations');
+    }
+    public function getTableHeading(): string|null
+    {
+        return __('dashboard.Recent Donations');
+    }
     protected function getTableQuery(): Builder
     {
         // This is a placeholder. We're not actually using this method directly.

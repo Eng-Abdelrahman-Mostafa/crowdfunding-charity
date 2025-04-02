@@ -8,13 +8,20 @@ use Filament\Widgets\ChartWidget;
 class AssociationManagerMonthlyDonationsChart extends ChartWidget
 {
     protected static ?string $heading = 'Monthly Donations';
-
     protected static ?int $sort = 2;
-
     protected static ?string $pollingInterval = '60s';
-
     protected int | string | array $columnSpan = 8;
+    protected static ?int $chartHeight = 300;
 
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'association_manager';
+    }
+
+    public function getHeading(): string
+    {
+        return __('dashboard.Monthly Donations');
+    }
     protected function getData(): array
     {
         $dashboardService = new DashboardService();

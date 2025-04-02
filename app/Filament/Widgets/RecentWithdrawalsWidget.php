@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Services\DashboardService;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -16,6 +17,18 @@ class RecentWithdrawalsWidget extends BaseWidget
 
     protected int | string | array $columnSpan = 6;
     public ?Collection $records = null;
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'admin';
+    }
+    public function getHeading(): string
+    {
+        return __('dashboard.Recent Withdrawals');
+    }
+    public function getTableHeading(): string|Htmlable|null
+    {
+        return __('dashboard.Recent Withdrawals');
+    }
 
     protected function getTableQuery(): Builder
     {

@@ -8,10 +8,17 @@ use Filament\Widgets\ChartWidget;
 class AssociationManagerCampaignsStatusChart extends ChartWidget
 {
     protected static ?string $heading = 'Your Campaigns by Status';
-
     protected static ?int $sort = 3;
-
     protected int | string | array $columnSpan = 4;
+    protected static ?int $chartHeight = 300;
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'association_manager';
+    }
+    public function getHeading(): string
+    {
+        return __('dashboard.Your Campaigns by Status');
+    }
     protected function getData(): array
     {
         $dashboardService = new DashboardService();

@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Services\DashboardService;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -17,7 +18,18 @@ class RecentDonationsWidget extends BaseWidget
     protected int | string | array $columnSpan = 6;
 
     public ?Collection $records = null;
-
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'admin';
+    }
+    public function getHeading(): string
+    {
+        return __('dashboard.Recent Donations');
+    }
+    public function getTableHeading(): string|Htmlable|null
+    {
+        return __('dashboard.Recent Donations');
+    }
     protected function getTableQuery(): Builder
     {
         // This is a placeholder. We're not actually using this method directly.

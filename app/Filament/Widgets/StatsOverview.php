@@ -50,4 +50,8 @@ class StatsOverview extends BaseWidget
                 ->color('warning'),
         ];
     }
+    public static function canView(): bool
+    {
+        return auth()->user()->type === 'admin';
+    }
 }

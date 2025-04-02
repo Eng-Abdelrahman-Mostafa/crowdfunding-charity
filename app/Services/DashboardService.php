@@ -77,9 +77,16 @@ class DashboardService
      */
     public function getMonthlyDonationsData(?array $associationIds = null): array
     {
+        // Check if we're using PostgreSQL or MySQL
+        $isPostgres = DB::connection()->getDriverName() === 'pgsql';
+
         $query = Donation::select(
-            DB::raw('MONTH(created_at) as month'),
-            DB::raw('YEAR(created_at) as year'),
+            $isPostgres
+                ? DB::raw('EXTRACT(MONTH FROM created_at) as month')
+                : DB::raw('MONTH(created_at) as month'),
+            $isPostgres
+                ? DB::raw('EXTRACT(YEAR FROM created_at) as year')
+                : DB::raw('YEAR(created_at) as year'),
             DB::raw('SUM(amount) as total_amount'),
             DB::raw('COUNT(*) as count')
         )
@@ -108,7 +115,9 @@ class DashboardService
             $months[] = $monthName;
 
             $monthData = $monthlyData->first(function ($item) use ($month) {
-                return $item->month == $month;
+                // Cast to integer to ensure comparison works correctly
+                // as PostgreSQL's EXTRACT returns a decimal/numeric type
+                return (int)$item->month == $month;
             });
 
             $amounts[] = $monthData ? (float) $monthData->total_amount : 0;
