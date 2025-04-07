@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\WithdrawalService;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,5 +37,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy('Role', \App\Policies\RolePolicy::class);
 
         $this->app->singleton(WithdrawalService::class);
+
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
