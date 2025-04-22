@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Models\Contracts\FilamentUser;
@@ -13,7 +14,7 @@ use Filament\Panel;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes,HasApiTokens;
 
     protected $fillable = [
         'name',
