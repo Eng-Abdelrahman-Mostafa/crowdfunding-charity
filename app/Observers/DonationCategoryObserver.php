@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\DonationCategory;
+use App\Services\DonationCategoryService;
 use App\Services\IndexDataService;
 use Illuminate\Support\Facades\App;
 
@@ -14,6 +15,7 @@ class DonationCategoryObserver
     public function created(DonationCategory $donationCategory): void
     {
         $this->clearCache();
+        $this->clearApiCache();
     }
 
     /**
@@ -22,14 +24,20 @@ class DonationCategoryObserver
     public function updated(DonationCategory $donationCategory): void
     {
         $this->clearCache();
+        $this->clearApiCache();
     }
-
+    public function saved(DonationCategory $donationCategory): void
+    {
+        $this->clearCache();
+        $this->clearApiCache();
+    }
     /**
      * Handle the DonationCategory "deleted" event.
      */
     public function deleted(DonationCategory $donationCategory): void
     {
         $this->clearCache();
+        $this->clearApiCache();
     }
 
     /**
@@ -38,6 +46,7 @@ class DonationCategoryObserver
     public function restored(DonationCategory $donationCategory): void
     {
         $this->clearCache();
+        $this->clearApiCache();
     }
 
     /**
@@ -46,6 +55,7 @@ class DonationCategoryObserver
     public function forceDeleted(DonationCategory $donationCategory): void
     {
         $this->clearCache();
+        $this->clearApiCache();
     }
 
     /**
@@ -55,5 +65,14 @@ class DonationCategoryObserver
     {
         $indexDataService = App::make(IndexDataService::class);
         $indexDataService->clearCache();
+    }
+
+    /**
+     * Clear the API cache
+     */
+    private function clearApiCache(): void
+    {
+        $donationCategoryService = App::make(DonationCategoryService::class);
+        $donationCategoryService->clearCache();
     }
 }

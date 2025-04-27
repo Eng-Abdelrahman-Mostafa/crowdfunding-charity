@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CampaignController;
+use App\Http\Controllers\API\DonationCategoryController;
 use App\Http\Controllers\API\IndexDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +24,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Index Data Route
 Route::get('/index-data', [IndexDataController::class, 'index']);
+
+// Donation Categories Route
+Route::get('/donation-categories', [DonationCategoryController::class, 'index']);
+
+// Campaigns Route
+Route::get('/campaigns', [CampaignController::class, 'index']);
 
 // Authentication Routes
 Route::prefix('auth')->group(function () {

@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Association;
+use App\Services\CampaignService;
 use App\Services\IndexDataService;
 use Illuminate\Support\Facades\App;
 
@@ -14,6 +15,7 @@ class AssociationObserver
     public function created(Association $association): void
     {
         $this->clearCache();
+        $this->clearApiCache();
     }
 
     /**
@@ -22,6 +24,12 @@ class AssociationObserver
     public function updated(Association $association): void
     {
         $this->clearCache();
+        $this->clearApiCache();
+    }
+    public function saved(Association $association): void
+    {
+        $this->clearCache();
+        $this->clearApiCache();
     }
 
     /**
@@ -30,6 +38,7 @@ class AssociationObserver
     public function deleted(Association $association): void
     {
         $this->clearCache();
+        $this->clearApiCache();
     }
 
     /**
@@ -38,6 +47,7 @@ class AssociationObserver
     public function restored(Association $association): void
     {
         $this->clearCache();
+        $this->clearApiCache();
     }
 
     /**
@@ -46,6 +56,7 @@ class AssociationObserver
     public function forceDeleted(Association $association): void
     {
         $this->clearCache();
+        $this->clearApiCache();
     }
 
     /**
@@ -55,5 +66,15 @@ class AssociationObserver
     {
         $indexDataService = App::make(IndexDataService::class);
         $indexDataService->clearCache();
+    }
+
+    /**
+     * Clear the API cache
+     */
+    private function clearApiCache(): void
+    {
+        // Clear campaigns cache since it includes association data
+        $campaignService = App::make(CampaignService::class);
+        $campaignService->clearCache();
     }
 }
