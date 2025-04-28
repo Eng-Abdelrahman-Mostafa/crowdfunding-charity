@@ -25,6 +25,13 @@ class Donation extends Model implements HasMedia
         'paid_at',
         'due_date',
     ];
+    
+    protected $casts = [
+        'amount' => 'decimal:2',
+        'donate_anonymously' => 'boolean',
+        'paid_at' => 'datetime',
+        'due_date' => 'date',
+    ];
     public function donor()
     {
         return $this->belongsTo(User::class, 'donor_id');

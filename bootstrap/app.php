@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->use([
             \Rakutentech\LaravelRequestDocs\LaravelRequestDocsMiddleware::class,
+            \App\Http\Middlewares\SetLocale::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -3,6 +3,8 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\API\DonationCategoryController;
+use App\Http\Controllers\API\DonationController;
+use App\Http\Controllers\API\ExpenditureController;
 use App\Http\Controllers\API\IndexDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +30,18 @@ Route::get('/index-data', [IndexDataController::class, 'index']);
 // Donation Categories Route
 Route::get('/donation-categories', [DonationCategoryController::class, 'index']);
 
-// Campaigns Route
+// Campaigns Routes
 Route::get('/campaigns', [CampaignController::class, 'index']);
+Route::get('/campaigns/{id}', [CampaignController::class, 'show']);
+Route::get('/campaigns/{id}/donations', [CampaignController::class, 'donations']);
+Route::get('/campaigns/{id}/expenditures', [CampaignController::class, 'expenditures']);
+
+// Donations Routes
+Route::get('/donations', [DonationController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/donations/my-donations', [DonationController::class, 'userDonations']);
+
+// Expenditures Route
+Route::get('/expenditures', [ExpenditureController::class, 'index']);
 
 // Authentication Routes
 Route::prefix('auth')->group(function () {

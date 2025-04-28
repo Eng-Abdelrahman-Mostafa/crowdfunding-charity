@@ -18,6 +18,11 @@ class Expenditure extends Model implements HasMedia
         'campaign_id',
         'created_by',
     ];
+    
+    protected $casts = [
+        'date' => 'date',
+        'amount' => 'decimal:2',
+    ];
     public function getReceiptAttribute(): string
     {
         // Check if the media relationship is already loaded

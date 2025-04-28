@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Campaign;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -39,6 +40,33 @@ class CampaignService
                 return $this->fetchCampaignsFromDatabase($queryParams, $perPage);
             }
         );
+    }
+
+    /**
+     * Get a single campaign by ID with all related data
+     *
+     * @param int $id
+     * @return Campaign
+     * @throws ModelNotFoundException
+     */
+    public function getCampaignById(int $id): Campaign
+    {
+        $campaign = Campaign::with([
+            'association',
+            'donationCategory',
+            'user',
+            'donations' => function($query) {
+                $query->with('donor')
+                      ->where('payment_status', 'success')
+                      ->latest()
+                      ->take(5);
+            },
+            'expenditures' => function($query) {
+                $query->latest('date');
+            }
+        ])->findOrFail($id);
+
+        return $campaign;
     }
 
     /**
