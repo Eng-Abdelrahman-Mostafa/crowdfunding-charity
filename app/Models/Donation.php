@@ -22,6 +22,8 @@ class Donation extends Model implements HasMedia
         'invoice_id',
         'invoice_key',
         'invoice_url',
+        'payment_data',
+        'payment_reference',
         'paid_at',
         'due_date',
     ];
@@ -29,6 +31,7 @@ class Donation extends Model implements HasMedia
     protected $casts = [
         'amount' => 'decimal:2',
         'donate_anonymously' => 'boolean',
+        'payment_data' => 'array',
         'paid_at' => 'datetime',
         'due_date' => 'date',
     ];
