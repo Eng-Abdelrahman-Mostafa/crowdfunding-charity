@@ -20,10 +20,10 @@ class FawaterakPaymentGateway extends AbstractPaymentGateway
     {
         $this->mode = config('payment.fawaterak.mode', 'sandbox');
         $this->apiKey = config('payment.fawaterak.api_key');
-        $this->baseUrl = $this->mode === 'live' 
-            ? 'https://app.fawaterk.com/api/v2' 
+        $this->baseUrl = $this->mode === 'live'
+            ? 'https://app.fawaterk.com/api/v2'
             : 'https://staging.fawaterk.com/api/v2';
-        
+
         $baseUrl = config('app.url');
         $this->redirectUrls = [
             'successUrl' => $baseUrl . '/payments/success',
@@ -69,7 +69,7 @@ class FawaterakPaymentGateway extends AbstractPaymentGateway
             $this->log('Error getting payment methods', [
                 'error' => $e->getMessage(),
             ]);
-            
+
             return [];
         }
     }
@@ -85,7 +85,7 @@ class FawaterakPaymentGateway extends AbstractPaymentGateway
     {
         try {
             $paymentMethodId = $data['payment_method_id'] ?? null;
-            
+
             if (!$paymentMethodId) {
                 return [
                     'success' => false,
@@ -95,7 +95,7 @@ class FawaterakPaymentGateway extends AbstractPaymentGateway
 
             $campaign = $donation->campaign;
             $donor = $donation->donor;
-            
+
             // Format donor name parts
             $nameParts = explode(' ', $donor->name);
             $firstName = $nameParts[0] ?? 'Donor';
@@ -145,7 +145,7 @@ class FawaterakPaymentGateway extends AbstractPaymentGateway
 
             if ($response->successful() && $response->json('status') === 'success') {
                 $responseData = $response->json('data');
-                
+
                 // Update donation with payment information
                 $donation->update([
                     'invoice_id' => $responseData['invoice_id'] ?? null,
@@ -224,7 +224,7 @@ class FawaterakPaymentGateway extends AbstractPaymentGateway
 
             if ($status === 'paid') {
                 $paymentStatus = 'success';
-                
+
                 // Update campaign collected amount if payment is successful
                 if ($donation->campaign) {
                     $donation->campaign->increment('collected_amount', $donation->amount);
@@ -267,7 +267,7 @@ class FawaterakPaymentGateway extends AbstractPaymentGateway
 
             if ($response->successful() && $response->json('status') === 'success') {
                 $responseData = $response->json('data');
-                
+
                 return [
                     'success' => true,
                     'data' => $responseData,
@@ -304,10 +304,10 @@ class FawaterakPaymentGateway extends AbstractPaymentGateway
             $secretKey = config('payment.fawaterak.vendor_key');
             $queryParam = "InvoiceId={$data['invoice_id']}&InvoiceKey={$data['invoice_key']}&PaymentMethod={$data['payment_method']}";
             $calculatedHash = hash_hmac('sha256', $queryParam, $secretKey, false);
-            
+
             return $calculatedHash === $data['hashKey'];
         }
-        
+
         // For old webhook format, just verify essential fields
         return isset($data['invoice_key']) && isset($data['invoice_status']);
     }

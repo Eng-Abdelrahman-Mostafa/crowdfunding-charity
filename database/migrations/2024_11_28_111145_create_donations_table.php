@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('donate_anonymously')->default(false);
             $table->string('currency', 3);
             $table->enum('payment_status', ['pending', 'success', 'failed']);
-            $table->enum('payment_method', ['online', 'offline']);
+            $table->string('payment_method')->default('online');
             $table->string('payment_with')->nullable()
             ->comment('payment gateway, bank, bkash, rocket etc');
             $table->string('invoice_id')->nullable();
