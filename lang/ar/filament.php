@@ -367,6 +367,12 @@ return [
             'payment_methods' => [
                 'online' => 'عبر الإنترنت',
                 'offline' => 'غير متصل',
+                'Credit Card' => 'بطاقة ائتمان',
+                'Bank Transfer' => 'تحويل بنكي',
+                'Cash' => 'نقدي',
+                'Fawry' => 'فوري',
+                'PayPal' => 'باي بال',
+                'Meeza' => 'ميزة',
             ],
             'validation' => [
                 'amount_exceeds_remaining_goal' => 'المبلغ يتجاوز المبلغ المتبقي',

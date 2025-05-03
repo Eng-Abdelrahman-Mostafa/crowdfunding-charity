@@ -366,6 +366,12 @@ return [
             'payment_methods' => [
                 'online' => 'Online',
                 'offline' => 'Offline',
+                'Credit Card' => 'Credit Card',
+                'Bank Transfer' => 'Bank Transfer',
+                'Cash' => 'Cash',
+                'Fawry' => 'Fawry',
+                'Meeza' => 'Meeza',
+                'PayPal' => 'PayPal',
             ],
             'validation' => [
                 'amount_exceeds_remaining_goal' => 'The donation amount exceeds the remaining goal amount (:remaining)',
